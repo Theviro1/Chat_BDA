@@ -1,10 +1,8 @@
 from pymilvus import connections, Collection, utility, db, FieldSchema, CollectionSchema, DataType
 from typing import List, Any
 
-INDEX_TYPE='IVF_FLAT'
-METRIC_TYPE='L2'
-INDEX_PARAMS={'nlist':20}
-SEARCH_PARAMS={'nprobe':20}
+from rag.custom.config import INDEX_TYPE, INDEX_PARAMS, METRIC_TYPE, SEARCH_PARAMS
+
 
 class Milvus:
     def __init__(self, host:str, port:str, db_name:str, collection_name:str):
@@ -15,6 +13,7 @@ class Milvus:
         # 初始化
         self.init()
     
+    # 初始化
     def init(self):
         # 检查数据库是否存在
         databases = db.list_database()
@@ -45,6 +44,7 @@ class Milvus:
             schema = CollectionSchema(fields, description='collection for custom RAG service')
             self.collection = Collection(self.collection_name, schema)
     
+    # 直接插入数据，根据chunk_id进行更新
     def insert(self, file_name:str, chunk_ids:List[str], embeddings:List[List[float]], contents:List[str]):
         datas = []
         for chunk_id, embedding, content in zip(chunk_ids, embeddings, contents):
@@ -85,3 +85,15 @@ class Milvus:
             d['content'] = hit.entity.get('content')
             results.append(d)
         return results
+    
+    # 判断是否存在某个文件
+    def has_file(self, file_name:str):
+        r = self.collection.query(expr=f'file_name == \'{file_name}\'', output_fields=['chunk_id', 'content'])
+        if len(r) == 0: return False
+        else: return True
+    
+    # 用新的一批chunk覆盖原文件
+    def cover_file(self, file_name:str, chunk_ids:List[str], embeddings:List[List[float]], contents:List[str]):
+        self.collection.delete(expr=f'file_name == \'{file_name}\'')
+        self.insert(file_name=file_name, chunk_ids=chunk_ids, embeddings=embeddings, contents=contents)
+        

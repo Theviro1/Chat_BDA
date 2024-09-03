@@ -1,9 +1,44 @@
+# freeMOD测试：
+from freemod import freeMOD
+freeMOD.prepare()
+freeMOD.run()
+# import sympy
+# import scipy
+# exp_raw = 'D_pos_coat_roll_reb - D_pos_coat_roll * ( 1 + eta_pos_roll_reb )'
+# exp = sympy.simplify(exp_raw)
+# symbols = ['D_pos_coat_roll_reb', 'D_pos_coat_roll', 'eta_pos_roll_reb']
+# r = sympy.lambdify(symbols, exp)
+# kwargs = {
+#     'D_pos_coat_roll_reb': 1,
+#     'eta_pos_roll_reb': 2,
+#     'D_pos_coat_roll': 3,
+# }
+# print(r(**kwargs))
+
+
+
+# from py2neo import Graph, NodeMatcher, RelationshipMatcher
+# graph = Graph('bolt://localhost:7687', auth=('neo4j', 'Theviro1'))
+# node_matcher = NodeMatcher(graph)
+# r = node_matcher.match('Parameter')
+# for res in r:
+#     print(res)
+
+
+
+# neo4j本地测试：success
+# from py2neo import Node, Relationship, Graph, NodeMatcher, RelationshipMatcher
+# graph = Graph('bolt://localhost:7687', auth=('neo4j', 'Theviro1'), name='neo4j')
+# r = graph.run("SHOW DATABASES")
+# print(r)
+
 
 
 # 知识问答+自定义RAG联合测试：success
 # from core.executor import Executor
 # executor = Executor()
-# query = '哪种孔隙率分布有利于提高电池高倍率下的性能？造成不同性能的原因是什么？'
+# query = '如果我想提高电池在高倍率下的放电容量，我可以选用尺寸更大的团聚体结构么？'
+# # executor.knowledge_base_update('/home/hjl/Chat_BDA/config/knowledge/方儒卿-非体积平均锂离子电池电极层模型的构建与应用.pdf')
 # r = executor.intention_identification(query)
 # # r = executor.llm(query)
 # print(r)

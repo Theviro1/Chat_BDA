@@ -6,8 +6,9 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_core.documents import Document
 import hashlib
 from utils.logs import CustomLogger
+
 # 定义不同文件的分割符，取决于文件的处理方法
-PDF_SEPARATOR = '。'
+from rag.custom.config import PDF_SEPARATOR
 
 class FileLoader:
     def __init__(self):
@@ -62,13 +63,6 @@ class FileHandler:
     def __init__(self, chunk_size:int, chunk_overlap:int, chunk_limit:int):
         self.loader = FileLoader()
         self.splitter = FileSplitter(chunk_size, chunk_overlap, chunk_limit)
-    
-    def handle_dir(self, dir_path:str):
-        files = os.listdir(dir_path)
-        for file in files:
-            file_path = os.path.join(dir_path, file)
-            self.handle(file_path)
-        # TODO
     
     def handle(self, file_path:str):
         file_name = os.path.basename(file_path)

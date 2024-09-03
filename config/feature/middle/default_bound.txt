@@ -1,0 +1,166 @@
+{
+    "w_pos_act_mass_1": [
+        -10000,
+        10000
+    ],
+    "w_pos_act_mass": [
+        -10000,
+        10000
+    ],
+    "w_pos_act_mass_2": [
+        -10000,
+        10000
+    ],
+    "c_pos_theo_cap_1": [
+        -10000,
+        10000
+    ],
+    "c_pos_theo_cap_2": [
+        -10000,
+        10000
+    ],
+    "c_pos_theo_cap": [
+        -10000,
+        10000
+    ],
+    "coef_pos_ins_li": [
+        -10000,
+        10000
+    ],
+    "c_pos_real_cap": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_roll": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_roll": [
+        -10000,
+        10000
+    ],
+    "10000": [
+        -10000,
+        10000
+    ],
+    "rou_pos_surf_cap": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_roll_reb": [
+        -10000,
+        10000
+    ],
+    "eta_pos_roll_reb": [
+        -10000,
+        10000
+    ],
+    "eta_pos_form_reb": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_form_reb": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_roll_reb": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_form_reb": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_roll_reb": [
+        -10000,
+        10000
+    ],
+    "m_pos_solid": [
+        -10000,
+        10000
+    ],
+    "w_pos_act_mass_i": [
+        -10000,
+        10000
+    ],
+    "m_pos_i": [
+        -10000,
+        10000
+    ],
+    "F": [
+        -10000,
+        10000
+    ],
+    "c_pos_real_cap_i": [
+        -10000,
+        10000
+    ],
+    "c_pos_s_max_i": [
+        -10000,
+        10000
+    ],
+    "v_pos_i": [
+        -10000,
+        10000
+    ],
+    "3600000": [
+        -10000,
+        10000
+    ],
+    "c_pos_theo_cap_i": [
+        -10000,
+        10000
+    ],
+    "rou_pos_binder": [
+        -10000,
+        10000
+    ],
+    "v_pos_binder": [
+        -10000,
+        10000
+    ],
+    "m_pos_binder": [
+        -10000,
+        10000
+    ],
+    "v_pos_conduct_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_binder_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_solid": [
+        -10000,
+        10000
+    ],
+    "v_pos_act_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_roll": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_form": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_form": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_roll": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_form": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_roll_reb": [
+        -10000,
+        10000
+    ]
+}

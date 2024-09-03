@@ -12,7 +12,7 @@ class CustomLLM(LLM):
     tokenizer: PreTrainedTokenizer = None
     model: PreTrainedModel = None
 
-    def __init__(self, config_dir: str = '/home/hjl/Chat_BDA/config/model/model_config.yaml', **kwargs: Any):
+    def __init__(self, config_dir: str, **kwargs: Any):
         # 读取配置文件加载模型
         super().__init__(**kwargs)
         with open(config_dir, 'r') as f:
