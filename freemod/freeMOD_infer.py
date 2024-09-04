@@ -176,15 +176,15 @@ def cal_exp_mm(rid, pid):
     left, right = [part.strip() for part in formula.split('=')][:2]
     expr = sympy.simplify(left + ' - ( {} ) '.format(right))
     func = sympy.lambdify(sympy.symbols('x'), expr)
-    def equations(vars):
-        x = vars
+    def eq(vars):
+        x = vars[0]
         result = func(x)
         return result
-    solution = scipy.optimize.fsolve(equations, input_paras[pid]['DefaultValue'])
-    if len(solution) == 0:
+    solution = scipy.optimize.least_squares(eq, input_paras[pid]['DefaultValue'])
+    if not solution.success:
         input_paras[pid]['ConflictInfo'] = ('unsolvable', None)
         return True
-    value = list(solution)[0]
+    value = solution.x[0]
     return report_exp(rid, pid, value)
       
 
@@ -197,9 +197,6 @@ def do_exp(rid, pid):
         is_conflict = cal_exp_eq(rid, pid)
     elif '>' in formula:
         is_conflict = cal_exp_ineq(rid, pid)
-    # if conflict occurred, print the traceback info
-    if is_conflict:
-        print_conflict(rid, pid)
     return is_conflict
 
 
@@ -216,10 +213,12 @@ def print_conflict(rid, lost_pid=-1):
         print('after inferred error\n')
         for pid in input_relas[rid]['Pn']:
             if input_pid_origin[pid] == 1:
+                if input_paras[pid]['isVisited'] == 1:
+                    continue
                 print(f'original input {input_paras[pid]["ParaName"]} = {input_paras[pid]["Value"]}')
+                input_paras[pid]['isVisited'] = 1
             else:
                 print_conflict_dfs(input_paras[pid]['InferredPath'], pid)
-                reset_isVisited()
         exp = get_exp(rid)
         print(f'\nafter infering, in formula {input_relas[rid]["Formula"]} there is a conflict:')
         print(f'formula {exp} cannot be satisfied')
@@ -294,7 +293,9 @@ def auto_infer():
         update_infer(inferred_pids)
         # double check whether other relas is satisfied
         for rid in range(len(input_relas)):
-            if not check_exp(rid): return False
+            if not check_exp(rid):
+                print_conflict(rid) 
+                return False
     print('finish auto infer')
     return True
 
@@ -306,7 +307,7 @@ eq_param2id = {}
 eq_id2param = {}
 eq_param_init = []
 
-def get_exps():
+def replace():
     # after inferring, replace all the inferred param with it's value.
     for rid in range(len(input_relas)):
         if full_exp(rid):
@@ -394,7 +395,7 @@ def solve():
     return True
 
 def auto_gen():
-    get_exps()
+    replace()
     times = 0
     # try to find a proper initial value
     for i in range(RETRY_TIMES):

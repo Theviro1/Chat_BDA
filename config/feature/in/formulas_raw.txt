@@ -1,3 +1,2 @@
-Max ( a , d ) > c
-e = d + b
-Max ( e , a ) > Min ( d , f ) + c
+e = a + 2
+Max ( e , a ) = Max ( Min ( b , 10 ) + c , 100 )
