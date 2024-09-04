@@ -3,6 +3,8 @@ from freemod import freeMOD_infer, freeMOD_load
 def prepare():
     # user provide: input_case.txt\formulas_raw.txt\ineqs.txt
 
+    # generate input.txt base on input_case.txt
+    freeMOD_load.handle_input()
     # generate formulas.txt base on input_case.txt and formulas_raw.txt
     freeMOD_load.handle_sum()
     # generate default_bound.txt base on formulas.txt

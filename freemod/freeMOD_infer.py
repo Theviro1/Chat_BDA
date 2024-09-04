@@ -7,7 +7,7 @@ import scipy
 import ast
 import json
 import re
-from freemod.config import NEO4J_URL, NEO4J_PASSWORD, NEO4J_USERNAME, INPUT_CASE_PATH, OUTPUT_PATH, ERR_RANGE
+from freemod.config import *
 
 input_relas = []
 input_paras = []
@@ -15,6 +15,9 @@ input_pid_sparse = []
 input_pid_origin = []
 input_rid_params = []
 
+
+# Part I. inputs
+ 
 def parse_case(file_path):
     with open(file_path, 'r') as f:
         case = f.read()
@@ -23,7 +26,7 @@ def parse_case(file_path):
 def load_inputs():
     global input_paras, input_relas, input_pid_origin, input_pid_sparse, input_rid_params
     # load values
-    input_case = parse_case(INPUT_CASE_PATH)
+    input_case = parse_case(INPUT_PATH)
     # load paras&relas from neo4j
     graph = Graph(NEO4J_URL, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
     all_paras = []
@@ -70,6 +73,7 @@ def load_inputs():
         input_rid_params[rid]['cnt_PIDs'] = len(input_rid_params[rid]['PIDs'])
 
 
+# Part II. handle expressions
 
 def full_exp(rid):
     # check whether all the params are inferred/inputted in a formula
@@ -84,6 +88,7 @@ def get_exp(rid, with_x=False, pid=-1)->str:
     lost_name = input_paras[pid]['ParaName']
     lost_value = str(input_paras[pid]['Value'])
     formula = str(input_relas[rid]['Formula'])
+    formula = formula.replace('Max', '$').replace('Min', '#')
     # replace other params with exact value
     Pn_sort_by_len = [[input_paras[pid]['ParaName'], pid] for pid in input_relas[rid]['Pn']]
     Pn_sort_by_len.sort(key=lambda x: len(x[0]), reverse=True)
@@ -98,6 +103,7 @@ def get_exp(rid, with_x=False, pid=-1)->str:
         formula = formula.replace(lost_name, 'x')
     else:
         formula = formula.replace(lost_name, lost_value)
+    formula = formula.replace('$', 'Max').replace('#', 'Min')
     return formula
 
 
@@ -110,14 +116,36 @@ def check_exp(rid):
         left, right = [part.strip() for part in formula.split('=')][:2]
         result = sympy.simplify(left + ' - ({}) '.format(right)).evalf()
         if not -ERR_RANGE <= result <= ERR_RANGE:
-            print_conflict(rid)
             return False  # exp is not satisfied
         return True
     elif '>' in formula:
+        # strictly limit inequality relations, no err_range
         result = sympy.simplify(formula)
         if result == False:
-            print_conflict(rid)
             return False  # exp is not satisfied
+        return True
+
+
+def report_exp(rid, pid, value):
+    result = value
+    lost_pid = pid
+    # 1. if pid has never been inferred before: set InferredValue, add formula to it's InferPath
+    if input_paras[lost_pid]['InferredValue'] is None:
+        # if result is clipped due to boundary limitation, this means formula is incorrect and raise a conflict
+        input_paras[lost_pid]['InferredValue'] = result
+        input_paras[lost_pid]['InferredPath'] = rid
+        old = result
+        new = float(np.clip(old, input_paras[lost_pid]['Domain'][0], input_paras[lost_pid]['Domain'][1]))
+        if old != new:
+            input_paras[lost_pid]['ConflictInfo'] = ('out of bound', result)
+            return True
+        return False
+    # 2. if pid has been inferred and the value is not conflict: do nothing
+    elif result - ERR_RANGE <= input_paras[lost_pid]['InferredValue'] <= result + ERR_RANGE:
+        return False
+    # 3. if pid has been inferred and the value is conflict: set Conflict as the tuple of two conflict formula rid
+    else:
+        input_paras[lost_pid]['ConflictInfo'] = ('formula collapse', result)
         return True
 
 
@@ -132,43 +160,51 @@ def cal_exp_eq(rid, pid):
     if len(results) > 0:
         # obtain calculate result
         result = results[0].evalf()
-        # 1. if pid has never been inferred before: set InferredValue, add formula to it's InferPath
-        if input_paras[lost_pid]['InferredValue'] is None:
-            # if result is clipped due to boundary limitation, this means formula is incorrect and raise a conflict
-            input_paras[lost_pid]['InferredValue'] = result
-            input_paras[lost_pid]['InferredPath'] = rid
-            old = result
-            new = float(np.clip(old, input_paras[lost_pid]['Domain'][0], input_paras[lost_pid]['Domain'][1]))
-            if old != new:
-                input_paras[lost_pid]['ConflictInfo'] = ('out of bound', result)
-                return True
-            return False
-            # 2. if pid has been inferred and the value is not conflict: do nothing
-        elif result - ERR_RANGE <= input_paras[lost_pid]['InferredValue'] <= result + ERR_RANGE:
-            return False
-        # 3. if pid has been inferred and the value is conflict: set Conflict as the tuple of two conflict formula rid
-        else:
-            input_paras[lost_pid]['ConflictInfo'] = ('formula collapse', result)
-            return True
-        #  if the function cannot be solved
+        return report_exp(rid, pid, result)
+    #  if the function cannot be solved
     else:
         input_paras[lost_pid]['ConflictInfo'] = ('unsolvable', None)
         return True
-        
+
+def cal_exp_ineq(rid, pid):
+    return False
+
+
+def cal_exp_mm(rid, pid):
+    # for max/min problem, it's difficult to solve it due to complicated&unpredictable formation of the formula, try scipy for an approximate solution
+    formula = get_exp(rid, with_x=True, pid=pid)
+    left, right = [part.strip() for part in formula.split('=')][:2]
+    expr = sympy.simplify(left + ' - ( {} ) '.format(right))
+    func = sympy.lambdify(sympy.symbols('x'), expr)
+    def equations(vars):
+        x = vars
+        result = func(x)
+        return result
+    solution = scipy.optimize.fsolve(equations, input_paras[pid]['DefaultValue'])
+    if len(solution) == 0:
+        input_paras[pid]['ConflictInfo'] = ('unsolvable', None)
+        return True
+    value = list(solution)[0]
+    return report_exp(rid, pid, value)
+      
 
 def do_exp(rid, pid):
     # deal with different kind of exp in different way, such as those contains 'Max/Min' '>' '='
     formula = input_relas[rid]['Formula']
-    if '=' in formula:
+    if 'Max' in formula or 'Min' in formula:
+        is_conflict = cal_exp_mm(rid, pid)
+    elif '=' in formula:
         is_conflict = cal_exp_eq(rid, pid)
-        if is_conflict:
-            print_conflict(rid, pid)
-        return is_conflict
-    if '>' in formula:
-        pass  # TODO
+    elif '>' in formula:
+        is_conflict = cal_exp_ineq(rid, pid)
+    # if conflict occurred, print the traceback info
+    if is_conflict:
+        print_conflict(rid, pid)
+    return is_conflict
 
 
-# functions of print
+# Part III. print functions
+
 def reset_isVisited():
     for param in input_paras:
         param['isVisited'] = 0
@@ -221,6 +257,7 @@ def print_conflict_dfs(rid, lost_pid):
     print(f'using formula {input_relas[rid]["Formula"]} inferred {input_paras[lost_pid]["ParaName"]} = {input_paras[lost_pid]["InferredValue"]}')
             
 
+# Part IV. infer
 
 def update_infer(pids):
     inferred_pids = pids
@@ -240,11 +277,13 @@ def auto_infer():
         flag = 0
         inferred_pids = []  # record of all the pids inferred in this round
         for rid in range(len(input_relas)):
+            if '>' in input_relas[rid]['Formula']: continue  # inequality relationship cannot be precisely solved, skip it.
             # to all the relas, if it can be inferred, calculate the lost param's value
             if input_relas[rid]['CountPn'] - input_rid_params[rid]['cnt_PIDs'] == 1:
                 lost_pid = [pid for pid in input_relas[rid]['Pn'] if pid not in input_rid_params[rid]['PIDs']][0]
                 is_conflict = do_exp(rid, lost_pid)
                 if is_conflict:
+                    print_conflict(rid, lost_pid)
                     return False
                 else: 
                     inferred_pids.append(lost_pid)
@@ -259,10 +298,12 @@ def auto_infer():
     print('finish auto infer')
     return True
 
+# Part V. solve equations
 
 eq_formula_infos = []
 eq_formula_exps = []
-eq_param_dict = {}
+eq_param2id = {}
+eq_id2param = {}
 eq_param_init = []
 
 def get_exps():
@@ -271,16 +312,24 @@ def get_exps():
         if full_exp(rid):
             continue
         exp = get_exp(rid)
-        left, right = [part.strip() for part in exp.split('=')][:2]
-        exp = left + ' - ( {} )'.format(right)
         eq_formula_exps.append(exp)
     # return the tuple of (function, [symbols]) of an expression using sympy processing
     for exp in eq_formula_exps:
+        # Max&Min can be handled in equal expression, no need for specific processing
+        if '=' in exp:
+            left, right = [part.strip() for part in exp.split('=')][:2]
+            exp = left + ' - ( {} ) '.format(right)
+            is_ineq = False
+        elif '>' in exp:
+            # expression left - right result should be a positive number. define the residual as 0 if the result is positive, else just the cal value
+            left, right = [part.strip() for part in exp.split('>')][:2]
+            exp = left + ' - ( {} ) '.format(right)
+            is_ineq = True
         exp_ = sympy.simplify(exp)
         symbols = list(exp_.free_symbols)
         func = sympy.lambdify(symbols, exp_)
         symbols = [str(symbol) for symbol in symbols]
-        info = (func, symbols)
+        info = (func, symbols, is_ineq)
         eq_formula_infos.append(info)
     # get all the params and return a diction, matching parameter's name with it's positional number
     symb_dict = ['+', '-', '*', ',' , '/', '<', '>', '(', ')', '=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -292,44 +341,75 @@ def get_exps():
         for para in all_paras:
             if re.match(r'^-?\d+(\.\d+)?(e-?\d+)?$', para):
                 continue
-            if para not in eq_param_dict.keys():
+            if para not in eq_param2id.keys():
                 pid = [param['PID'] for param in input_paras if param['ParaName']==para][0]
                 eq_param_init.append(input_paras[pid]['DefaultValue'])  # these params is not in input_pid_sparse, their value have never been inputted or inferred, take their default value as initial value
-                # create a diction, key is the param name, value is it's positional number, it will be quite useful in scipy
-                eq_param_dict[para] = i
+                # create a diction, matching param's id with param's name
+                eq_param2id[para] = i
+                eq_id2param[i] = para
                 i += 1
  
 
 def equations(vars):
-    # get the value of var base on it's positional number. For example if eq_param_dict['a'] = 0, vars[0] will be the input value of 'a' 
+    # get the value of var base on it's positional number. For example if eq_param2id['a'] = 0, vars[0] will be the input value of 'a' 
     results = []
-    for func, params in eq_formula_infos:
+    for func, params, is_ineq in eq_formula_infos:
         input_dict = {}
         # get all the param name in this formula, get their positional number and subsequently obtain their value in list 'vars'
         for param in params:
-            value = vars[eq_param_dict[param]]
+            value = vars[eq_param2id[param]]
             if param not in input_dict:
                 input_dict[param] = value
         result = func(**input_dict)
+        if is_ineq: result = 0 if result > 0 else result  # expression left - right result should be a positive number. define the residual as 0 if the result is positive, else stay still
         results.append(result)
     return results
 
-
-def auto_gen():
-    get_exps()
-    # using least square to calculate approximate value
-    solution = scipy.optimize.least_squares(equations, eq_param_init)
+def solve():
+    eq_param_init = []
+    for name in eq_param2id.keys():
+        pid = [param['PID'] for param in input_paras if param['ParaName'] == name][0]
+        lower = input_paras[pid]['Domain'][0]
+        upper = input_paras[pid]['Domain'][1]
+        input_paras[pid]['DefaultValue'] = float(np.clip(np.random.normal(loc=(lower+upper)/2, scale=STD_DEV), lower, upper))
+        eq_param_init.append(input_paras[pid]['DefaultValue'])
+    solution = scipy.optimize.least_squares(equations, eq_param_init)  # using least square to calculate approximate value
+    if not solution.success: return False
+    # if solution exist, check whether the deviation is tiny enough
     for i in range(len(solution.x)):
         val = solution.x[i]
-        key = [k for k, v in eq_param_dict.items() if v==i][0]
-        pid = [param['PID'] for param in input_paras if param['ParaName']==key][0]
+        name = eq_id2param[i]
+        pid = [param['PID'] for param in input_paras if param['ParaName'] == name][0]
         input_paras[pid]['Value'] = val
         input_pid_sparse[pid] = 1
     for rid in range(len(input_relas)):
-        if not check_exp(rid):  return False
+        # this means even though all the value is inferred, there is still a huge deviation in formulas, reverse the process
+        if not check_exp(rid):
+            for i in range(len(solution.x)):
+                name = eq_id2param[i]
+                pid = [param['PID'] for param in input_paras if param['ParaName'] == name][0]
+                input_paras[pid]['Value'] = input_paras[pid]['ParaName']  # reset value
+                input_pid_sparse[pid] = 0  # reset input_pid_sparse 
+            return False
+    return True
+
+def auto_gen():
+    get_exps()
+    times = 0
+    # try to find a proper initial value
+    for i in range(RETRY_TIMES):
+        times += 1
+        solvable = solve()
+        if solvable: break
+    if times == RETRY_TIMES:
+        print('during generating encounter an error: formulas unsolvable, try fix inputs')
+        return False
+    # here means formulas solvable, in function solve(), the proper value of initial value has been saved in eq_param_init    
+    print(f'after {times} times of loop, successfully generate a bunch of value that satisfied all the formulas')
     print('finish auto generate')
     return True
     
+# Part VI. output
     
 def output():
     out_dict = {}
@@ -344,10 +424,10 @@ def run():
     load_inputs()
     inferable = auto_infer()
     if not inferable: 
-        print('input unsolvable')
+        print('infer unsolvable')
         return 
     solvable = auto_gen()
     if not solvable: 
-        print('formulas unsolvable')
+        print('generate unsolvable')
         return
     output()

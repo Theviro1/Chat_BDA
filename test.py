@@ -2,19 +2,6 @@
 from freemod import freeMOD
 freeMOD.prepare()
 freeMOD.run()
-# import sympy
-# import scipy
-# exp_raw = 'D_pos_coat_roll_reb - D_pos_coat_roll * ( 1 + eta_pos_roll_reb )'
-# exp = sympy.simplify(exp_raw)
-# symbols = ['D_pos_coat_roll_reb', 'D_pos_coat_roll', 'eta_pos_roll_reb']
-# r = sympy.lambdify(symbols, exp)
-# kwargs = {
-#     'D_pos_coat_roll_reb': 1,
-#     'eta_pos_roll_reb': 2,
-#     'D_pos_coat_roll': 3,
-# }
-# print(r(**kwargs))
-
 
 
 # from py2neo import Graph, NodeMatcher, RelationshipMatcher

@@ -13,7 +13,7 @@ def input_case(file_path):
 
 # This function aim to deal with the Sum expressions in formulas_raw.txt and replace them with simple form, currently only 2 or less inputs is supported
 def handle_sum():
-    case = input_case(INPUT_CASE_PATH)
+    case = input_case(INPUT_PATH)
     with open(FORMULAS_RAW_PATH, 'r') as f:
         formulas = f.readlines()
     reformed_formulas = []
@@ -46,7 +46,7 @@ def handle_sum():
                 sum_formulas.append(right_exp_reform)
                 i += 1
             if i == 1:
-                print(f'no proper inputs can be found in {formula}, try skip this formula')
+                print(f'no proper inputs can be found in {formula.strip()}, try skip this formula')
             right_formula = ' + '.join(sum_formulas)
             # if user input nothing, this formula will be deleted, left_exp will choose the default value
             if right_formula == '': 
@@ -115,6 +115,18 @@ def create_default_bound():
         json.dump(default_bound, f, indent=4)
 
 
+
+def handle_input():
+    inputs = collections.defaultdict()
+    with open(INPUT_CASE_PATH, 'r') as f:
+        input_cases = f.readlines()
+        for input_case in input_cases:
+            symbol, value = input_case.split('=')[:2]
+            inputs[symbol.strip()] = float(value.strip())
+    with open(INPUT_PATH, 'w') as f:
+        json.dump(inputs, f, indent=4)
+
+
 def load_database():
     symb_dict = ['+', '-', '*', ',' , '/', '<', '>', '(', ')', '=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     func_dic = ['Min', 'Sum', 'Max']
@@ -146,7 +158,6 @@ def load_database():
                     para_list[para]['Rn'] = []
                     para_list[para]['CountRn'] = 0
                     para_list[para]['Domain'] = [lower, upper]
-                    para_list[para]['Unit'] = 'defaultUnit'
                 para_list[para]['Rn'].append(formu_list[formula]['RID'])
                 para_list[para]['CountRn'] += 1     # a param can only appear a single time in a formula
             formu_list[formula]['Pn'] = [para_list[pn]['PID'] for pn in paras]
@@ -156,8 +167,7 @@ def load_database():
     graph = Graph(NEO4J_URL, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
     graph.run('MATCH (n) DETACH DELETE n')  # clear database first
     for para, info in zip(para_list.keys(), para_list.values()):
-        node = Node("Parameter", PID=info['PID'], ParaName=para, Unit=info['Unit'], DefaultValue=info['DefaultValue'], 
-            Domain=info['Domain'], Rn=info['Rn'], CountRn=info['CountRn'])
+        node = Node("Parameter", PID=info['PID'], ParaName=para, DefaultValue=info['DefaultValue'], Domain=info['Domain'], Rn=info['Rn'], CountRn=info['CountRn'])
         graph.create(node)
     for formu, info in zip(formu_list.keys(), formu_list.values()):
         node = Node("Relation", RID=info['RID'], Formula=formu, Pn=info['Pn'], CountPn=info['CountPn'])
