@@ -88,7 +88,7 @@ def get_exp(rid, with_x=False, pid=-1)->str:
     lost_name = input_paras[pid]['ParaName']
     lost_value = str(input_paras[pid]['Value'])
     formula = str(input_relas[rid]['Formula'])
-    formula = formula.replace('Max', '$').replace('Min', '#')
+    formula = formula.replace('Max', '$').replace('Min', '#').replace('ceiling', '@').replace('floor', '&')
     # replace other params with exact value
     Pn_sort_by_len = [[input_paras[pid]['ParaName'], pid] for pid in input_relas[rid]['Pn']]
     Pn_sort_by_len.sort(key=lambda x: len(x[0]), reverse=True)
@@ -103,7 +103,7 @@ def get_exp(rid, with_x=False, pid=-1)->str:
         formula = formula.replace(lost_name, 'x')
     else:
         formula = formula.replace(lost_name, lost_value)
-    formula = formula.replace('$', 'Max').replace('#', 'Min')
+    formula = formula.replace('$', 'Max').replace('#', 'Min').replace('@', 'ceiling').replace('&', 'floor')
     return formula
 
 
@@ -167,10 +167,11 @@ def cal_exp_eq(rid, pid):
         return True
 
 def cal_exp_ineq(rid, pid):
-    return False
+    # This function is abolished, it'll never be visited in program
+    pass
 
 
-def cal_exp_mm(rid, pid):
+def cal_exp_math(rid, pid):
     # for max/min problem, it's difficult to solve it due to complicated&unpredictable formation of the formula, try scipy for an approximate solution
     formula = get_exp(rid, with_x=True, pid=pid)
     left, right = [part.strip() for part in formula.split('=')][:2]
@@ -191,8 +192,8 @@ def cal_exp_mm(rid, pid):
 def do_exp(rid, pid):
     # deal with different kind of exp in different way, such as those contains 'Max/Min' '>' '='
     formula = input_relas[rid]['Formula']
-    if 'Max' in formula or 'Min' in formula:
-        is_conflict = cal_exp_mm(rid, pid)
+    if 'Max' in formula or 'Min' in formula or 'ceiling' in formula or 'floor' in formula:
+        is_conflict = cal_exp_math(rid, pid)
     elif '=' in formula:
         is_conflict = cal_exp_eq(rid, pid)
     elif '>' in formula:
@@ -334,7 +335,7 @@ def replace():
         eq_formula_infos.append(info)
     # get all the params and return a diction, matching parameter's name with it's positional number
     symb_dict = ['+', '-', '*', ',' , '/', '<', '>', '(', ')', '=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    func_dict = ['Min', 'Sum', 'Max']
+    func_dict = ['Min', 'ceiling', 'Max', 'floor', 'Sum']
     i = 0
     for exp in eq_formula_exps:
         eles = exp.split(' ')
@@ -396,6 +397,9 @@ def solve():
 
 def auto_gen():
     replace()
+    if len(eq_formula_exps) == 0: 
+        print('auto infer has inferred all value, no need for auto generate')
+        return True
     times = 0
     # try to find a proper initial value
     for i in range(RETRY_TIMES):

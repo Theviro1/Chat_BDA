@@ -1,2 +1,2 @@
-e = a + 2
-Max ( e , a ) = Max ( Min ( b , 10 ) + c , 100 )
+d = ceiling ( a )
+e = floor ( a + b )

@@ -99,7 +99,7 @@ def handle_ineqs():
 
 def create_default_bound():
     symb_dict = ['+', '-', '*', ',' , '/', '<', '>', '(', ')', '=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    func_dic = ['Min', 'Sum', 'Max']
+    func_dic = ['Min', 'Sum', 'Max', 'ceiling', 'floor']
     # create default_bound.txt, base on formulas.txt
     default_bound = collections.defaultdict(dict)
     with open(FORMULAS_PATH, 'r') as f:
@@ -129,7 +129,7 @@ def handle_input():
 
 def load_database():
     symb_dict = ['+', '-', '*', ',' , '/', '<', '>', '(', ')', '=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    func_dic = ['Min', 'Sum', 'Max']
+    func_dic = ['Min', 'Sum', 'Max', 'ceiling', 'floor']
     para_list = collections.defaultdict(dict)
     formu_list = collections.defaultdict(dict)
     i,j = 0, 0
