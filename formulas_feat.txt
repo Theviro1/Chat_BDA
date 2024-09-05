@@ -42,27 +42,100 @@ eta_neg_coat_por_roll = 1 - ( v_neg_solid / v_neg_coat_roll )
 eta_neg_coat_por_form = 1 - ( v_neg_solid / v_neg_coat_form )
 eta_neg_coat_por_roll_reb = 1 - ( v_neg_solid / v_neg_coat_roll_reb )
 
+
+
+# 方卷
+
 # dense卷绕方式
-D_needle = 2 * D_sep                                                                                                   
+D_needle = 2 * D_sep  
+# normal卷绕方式
+D_needle = 0.3
+
 W_needle_rect = W_needle - D_needle
 D_repeat = 2 * ( D_pos_coat_roll_reb + D_neg_coat_roll_reb + D_sep ) + D_pos_cc + D_neg_cc
-# 正极起卷
+cnt_line = ceiling ( 2 * N_roll )
+
+# 正极起卷，正极收卷
+R_0_pos = ( D_pos_cc + D_needle ) / 2  
+L_pos_total = 3.14159265 * N_roll * ( 2 * R_0_pos + N_roll * D_repeat ) + W_needle_rect * cnt_line
+L_pos_first = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2
+L_pos_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_pos + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 )
+L_pos_out = L_pos_total - L_pos_nroll_last
+R_0_neg = ( ( D_neg_cc + D_needle ) / 2 ) + D_pos_cc + D_sep + D_neg_coat_roll_reb + D_pos_coat_roll_reb
+L_neg_total = 3.14159265 * N_roll * ( 2 * R_0_neg + N_roll * D_repeat ) + W_needle_rect * cnt_line - ( L_start_in * 1000 )
+L_neg_first = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
+L_neg_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_neg + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 ) - L_start_in * 1000
+L_neg_out = L_neg_total - L_neg_nroll_last
+
+L_pos_single = L_pos_first + L_end_more * 1000
+L_pos_coat_use = 2 * L_pos_total - L_pos_first + Min ( L_neg_out , L_end_more * 1000 )
+L_pos_coat_total = 2 * L_pos_total - L_pos_first + L_end_more
+L_neg_single = L_neg_out - L_end_more * 1000
+L_neg_coat_total = 2 * L_neg_total + Min ( 0 , L_end_more * 1000 - L_neg_out )
+
+
+# 正极起卷，负极收卷
 R_0_pos = ( D_pos_cc + D_needle ) / 2                                                                                   
 R_0_neg = ( ( D_neg_cc + D_needle ) / 2 ) + D_pos_cc + D_sep + D_neg_coat_roll_reb + D_pos_coat_roll_reb
 L_pos_total = 3.14159265 * N_roll * ( 2 * R_0_pos + N_roll * D_repeat ) + W_needle_rect * cnt_line
-L_pos_1 = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2
+L_pos_first = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2
+L_pos_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_pos + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 )
+L_pos_out = L_pos_total - L_pos_nroll_last
 L_neg_total = 3.14159265 * N_roll * ( 2 * R_0_neg + N_roll * D_repeat ) + W_needle_rect * cnt_line - ( L_start_in * 1000 )
-L_neg_1 = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
-# 负极起卷
+L_neg_first = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
+L_neg_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_neg + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 ) - L_start_in * 1000
+L_neg_out = L_neg_total - L_neg_nroll_last
+
+L_pos_single = L_pos_first
+L_pos_coat_use = 2 * L_pos_total - L_pos_first
+L_pos_coat_total = L_pos_coat_use
+L_neg_single = L_neg_out + L_end_more * 1000
+L_neg_coat_total = 2 * L_neg_total - L_neg_out + L_end_more
+
+
+# 负极起卷，负极收卷
 R_0_neg = ( D_neg_cc + D_needle ) / 2                                                                                   
 R_0_pos = ( ( D_pos_cc + D_needle ) / 2 ) + D_neg_cc + D_sep + D_neg_coat_roll_reb + D_pos_coat_roll_reb
 L_pos_total = 3.14159265 * N_roll * ( 2 * R_0_pos + N_roll * D_repeat ) + W_needle_rect * cnt_line - ( L_start_in * 1000 )
-L_pos_1 = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
+L_pos_first = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
+L_pos_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_pos + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 ) - ( L_start_in * 1000 )
+L_pos_out = L_pos_total - L_pos_nroll_last
 L_neg_total = 3.14159265 * N_roll * ( 2 * R_0_neg + N_roll * D_repeat ) + W_needle_rect * cnt_line
-L_neg_1 = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2
-# 需要向上取整
-cnt_line = 2 * N_roll
+L_neg_first = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2
+L_neg_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_neg + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 )
+L_neg_out = L_neg_total - L_neg_nroll_last
+
+L_pos_single = L_pos_out - L_end_more * 1000
+L_pos_coat_use = 2 * L_pos_total + Min ( 0 , L_end_more * 1000 - L_pos_out )
+L_pos_coat_total = L_pos_coat_use
+L_neg_single = L_neg_first + L_end_more * 1000
+L_neg_coat_total = 2 * L_neg_total - L_neg_first + L_end_more
+
+
+# 负极起卷，正极收卷
+R_0_neg = ( D_neg_cc + D_needle ) / 2                                                                                   
+R_0_pos = ( ( D_pos_cc + D_needle ) / 2 ) + D_neg_cc + D_sep + D_neg_coat_roll_reb + D_pos_coat_roll_reb
+L_pos_total = 3.14159265 * N_roll * ( 2 * R_0_pos + N_roll * D_repeat ) + W_needle_rect * cnt_line - ( L_start_in * 1000 )
+L_pos_first = 3.14159265 * ( 2 * R_0_pos + D_repeat ) + W_needle_rect * 2 - ( L_start_in * 1000 )
+L_pos_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_pos + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 ) - ( L_start_in * 1000 )
+L_pos_out = L_pos_total - L_pos_nroll_last
+L_neg_total = 3.14159265 * N_roll * ( 2 * R_0_neg + N_roll * D_repeat ) + W_needle_rect * cnt_line
+L_neg_first = 3.14159265 * ( 2 * R_0_neg + D_repeat ) + W_needle_rect * 2
+L_neg_nroll_last = 3.14159265 * ( N_roll - 1 ) * ( 2 * R_0_neg + ( N_roll - 1 ) * D_repeat ) + W_needle_rect * ( cnt_line - 2 )
+L_neg_out = L_neg_total - L_neg_nroll_last
+
+L_pos_single = L_pos_out + L_end_more * 1000
+L_pos_coat_use = 2 * L_pos_total - L_pos_out
+L_pos_coat_total = L_pos_coat_use + L_end_more * 1000
+L_neg_single = L_neg_first
+L_neg_coat_total = 2 * L_neg_total - L_neg_first
 
 
 
 
+v_pos_coat_roll_reb_use = ( L_pos_coat_use * H_pos * D_pos_coat_roll_reb ) / 1000000000
+v_pos_coat_roll_reb = ( L_pos_coat_total * H_pos * D_pos_coat_roll_reb ) / 1000000000
+
+v_neg_coat_roll_reb = ( L_neg_coat_total * H_neg * D_neg_coat_roll_reb ) / 1000000000
+
+P13

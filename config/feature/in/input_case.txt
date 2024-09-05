@@ -1,3 +1,8 @@
-a = 1.5
-b = 2
-c = 3
+w_pos_act_mass_1 = 10
+w_pos_act_mass_2 = 20
+c_pos_real_cap_1 = 5
+c_pos_s_max_1 = 9
+c_pos_theo_cap_1 = 1
+c_pos_theo_cap_2 = 2
+m_pos_solid = 10
+F = 2000000

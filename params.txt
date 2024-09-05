@@ -85,20 +85,32 @@ D_repeat: 最小重复单元厚度
 cnt_line: 卷芯直边数量
 N_roll: 单个卷芯卷绕圈数
 L_start_in: 起卷极片入料长度
+L_end_more: 极片长度余量
 
 
 D_pos_cc: 正极集流体厚度
 R_0_pos: 正极内径
 L_pos_total: 正极极片总长
-L_pos_1: 正极极片第一圈长
+L_pos_first: 正极极片第一圈长
+L_pos_nroll_last: 正极极片Nroll-1圈长
 L_pos_out: 正极极片最外圈长
+L_pos_single: 正极单面涂布长度
+L_pos_coat_use: 正极发挥容量涂布长度
+L_pos_coat_total: 正极总涂布长度
+H_pos: 正极极片高度
+v_pos_coat_roll_reb_use: 发挥容量的辊压反弹后体积
 
 
 D_neg_cc: 负极集流体厚度
 R_0_neg: 负极内径
 L_neg_total: 负极极片总长
-L_neg_1: 负极极片第一圈长
+L_neg_first: 负极极片第一圈长
+L_neg_nroll_last: 负极极片Nroll-1圈长
 L_neg_out: 负极极片最外圈长
+L_pos_single: 负极单面涂布长度
+L_pos_coat_use: 负极发挥容量涂布长度
+L_pos_coat_total: 负极总涂布长度
+H_neg: 负极极片高度
 
 叠片
 

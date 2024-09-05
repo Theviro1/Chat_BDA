@@ -1,2 +1,8 @@
-d = ceiling ( a )
-e = floor ( a + b )
+w_pos_act_mass = Sum ( w_pos_act_mass_i )
+c_pos_theo_cap = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_theo_cap_i )
+c_pos_real_cap = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_real_cap_i )
+c_pos_s_max = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_s_max_i )
+m_pos_i = m_pos_solid * w_pos_act_mass_i
+v_pos_i = ( m_pos_i * c_pos_real_cap_i * 3600000 ) / ( ( c_pos_real_cap_i / c_pos_theo_cap_i ) * F * c_pos_s_max_i )
+m_neg_i = w_neg_act_mass_i * m_neg_solid
+v_neg_i = ( m_neg_i * c_neg_real_cap_i * 3600000 ) / ( ( c_neg_real_cap_i / c_neg_theo_cap_i ) * F * c_neg_s_max_i )

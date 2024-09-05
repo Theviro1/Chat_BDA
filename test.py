@@ -1,8 +1,6 @@
 # freeMOD测试：
 from freemod import freeMOD
-freeMOD.prepare()
 freeMOD.run()
-
 
 
 # from py2neo import Graph, NodeMatcher, RelationshipMatcher

@@ -198,6 +198,9 @@ def do_exp(rid, pid):
         is_conflict = cal_exp_eq(rid, pid)
     elif '>' in formula:
         is_conflict = cal_exp_ineq(rid, pid)
+    else:
+        print(formula)
+        is_conflict = False
     return is_conflict
 
 

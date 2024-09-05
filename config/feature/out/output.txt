@@ -1,6 +1,17 @@
 {
-    "d": 2.0,
-    "a": 1.5,
-    "e": 3.0,
-    "b": 2.0
+    "w_pos_act_mass_2": 20.0,
+    "w_pos_act_mass": 30.0,
+    "w_pos_act_mass_1": 10.0,
+    "c_pos_theo_cap_2": 2.0,
+    "c_pos_theo_cap": 1.6666666666666667,
+    "c_pos_theo_cap_1": 1.0,
+    "c_pos_real_cap": 1.6666666666666667,
+    "c_pos_real_cap_1": 5.0,
+    "c_pos_s_max": 3.0,
+    "c_pos_s_max_1": 9.0,
+    "m_pos_1": 100.0,
+    "m_pos_solid": 10.0,
+    "m_pos_2": 200.0,
+    "v_pos_1": 20.0,
+    "F": 2000000.0
 }
