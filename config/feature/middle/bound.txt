@@ -11,15 +11,15 @@
         -10000,
         10000
     ],
+    "c_pos_theo_cap_1": [
+        -10000,
+        10000
+    ],
     "c_pos_theo_cap_2": [
         -10000,
         10000
     ],
     "c_pos_theo_cap": [
-        -10000,
-        10000
-    ],
-    "c_pos_theo_cap_1": [
         -10000,
         10000
     ],
@@ -39,11 +39,59 @@
         -10000,
         10000
     ],
-    "m_pos_1": [
+    "coef_pos_ins_li": [
+        -10000,
+        10000
+    ],
+    "10000": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_roll": [
+        -10000,
+        10000
+    ],
+    "rou_pos_surf_cap": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_roll": [
+        -10000,
+        10000
+    ],
+    "eta_pos_roll_reb": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_roll_reb": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_form_reb": [
+        -10000,
+        10000
+    ],
+    "eta_pos_form_reb": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_roll_reb": [
+        -10000,
+        10000
+    ],
+    "rou_pos_comp_form_reb": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_roll_reb": [
         -10000,
         10000
     ],
     "m_pos_solid": [
+        -10000,
+        10000
+    ],
+    "m_pos_1": [
         -10000,
         10000
     ],
@@ -60,6 +108,290 @@
         10000
     ],
     "F": [
+        -10000,
+        10000
+    ],
+    "rou_pos_binder": [
+        -10000,
+        10000
+    ],
+    "m_pos_binder": [
+        -10000,
+        10000
+    ],
+    "v_pos_binder": [
+        -10000,
+        10000
+    ],
+    "v_pos_act_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_conduct_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_solid": [
+        -10000,
+        10000
+    ],
+    "v_pos_binder_total": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_roll": [
+        -10000,
+        10000
+    ],
+    "v_pos_coat_form": [
+        -10000,
+        10000
+    ],
+    "D_pos_coat_form": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_roll": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_form": [
+        -10000,
+        10000
+    ],
+    "eta_pos_coat_por_roll_reb": [
+        -10000,
+        10000
+    ],
+    "c_neg_real_cap": [
+        -10000,
+        10000
+    ],
+    "coef_neg_ins_li": [
+        -10000,
+        10000
+    ],
+    "c_neg_theo_cap": [
+        -10000,
+        10000
+    ],
+    "NP": [
+        -10000,
+        10000
+    ],
+    "rou_surf_cap": [
+        -10000,
+        10000
+    ],
+    "rou_neg_surf_cap": [
+        -10000,
+        10000
+    ],
+    "w_neg_act_mass": [
+        -10000,
+        10000
+    ],
+    "D_neg_coat_roll": [
+        -10000,
+        10000
+    ],
+    "rou_neg_comp_roll": [
+        -10000,
+        10000
+    ],
+    "D_neg_coat_roll_reb": [
+        -10000,
+        10000
+    ],
+    "eta_neg_roll_reb": [
+        -10000,
+        10000
+    ],
+    "eta_neg_form_reb": [
+        -10000,
+        10000
+    ],
+    "D_neg_coat_form_reb": [
+        -10000,
+        10000
+    ],
+    "rou_neg_comp_roll_reb": [
+        -10000,
+        10000
+    ],
+    "rou_neg_comp_form_reb": [
+        -10000,
+        10000
+    ],
+    "v_neg_coat_roll_reb": [
+        -10000,
+        10000
+    ],
+    "m_neg_solid": [
+        -10000,
+        10000
+    ],
+    "m_neg_binder": [
+        -10000,
+        10000
+    ],
+    "rou_neg_binder": [
+        -10000,
+        10000
+    ],
+    "v_neg_binder": [
+        -10000,
+        10000
+    ],
+    "v_neg_act_total": [
+        -10000,
+        10000
+    ],
+    "v_neg_binder_total": [
+        -10000,
+        10000
+    ],
+    "v_neg_solid": [
+        -10000,
+        10000
+    ],
+    "v_neg_conduct_total": [
+        -10000,
+        10000
+    ],
+    "v_neg_coat_roll": [
+        -10000,
+        10000
+    ],
+    "v_neg_coat_form": [
+        -10000,
+        10000
+    ],
+    "D_neg_coat_form": [
+        -10000,
+        10000
+    ],
+    "eta_neg_coat_por_roll": [
+        -10000,
+        10000
+    ],
+    "eta_neg_coat_por_form": [
+        -10000,
+        10000
+    ],
+    "eta_neg_coat_por_roll_reb": [
+        -10000,
+        10000
+    ],
+    "W_needle": [
+        -10000,
+        10000
+    ],
+    "W_needle_rect": [
+        -10000,
+        10000
+    ],
+    "D_needle": [
+        -10000,
+        10000
+    ],
+    "D_repeat": [
+        -10000,
+        10000
+    ],
+    "D_pos_cc": [
+        -10000,
+        10000
+    ],
+    "D_sep": [
+        -10000,
+        10000
+    ],
+    "D_neg_cc": [
+        -10000,
+        10000
+    ],
+    "N_roll": [
+        -10000,
+        10000
+    ],
+    "cnt_line": [
+        -10000,
+        10000
+    ],
+    "R_0_pos": [
+        -10000,
+        10000
+    ],
+    "3.14159265": [
+        -10000,
+        10000
+    ],
+    "L_pos_total": [
+        -10000,
+        10000
+    ],
+    "L_pos_first": [
+        -10000,
+        10000
+    ],
+    "L_pos_nroll_last": [
+        -10000,
+        10000
+    ],
+    "L_pos_out": [
+        -10000,
+        10000
+    ],
+    "R_0_neg": [
+        -10000,
+        10000
+    ],
+    "1000": [
+        -10000,
+        10000
+    ],
+    "L_start_in": [
+        -10000,
+        10000
+    ],
+    "L_neg_total": [
+        -10000,
+        10000
+    ],
+    "L_neg_first": [
+        -10000,
+        10000
+    ],
+    "L_neg_nroll_last": [
+        -10000,
+        10000
+    ],
+    "L_neg_out": [
+        -10000,
+        10000
+    ],
+    "L_pos_single": [
+        -10000,
+        10000
+    ],
+    "L_end_more": [
+        -10000,
+        10000
+    ],
+    "L_pos_coat_use": [
+        -10000,
+        10000
+    ],
+    "L_pos_coat_total": [
+        -10000,
+        10000
+    ],
+    "L_neg_single": [
+        -10000,
+        10000
+    ],
+    "L_neg_coat_total": [
         -10000,
         10000
     ]

@@ -2,22 +2,29 @@ from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.llms.base import BaseLanguageModel
 from typing import Dict, Any, List
-from model.model import CustomLLM
 import yaml
 
+from model.model import CustomLLM
+from model.embed import Embed
+from model.rerank import Rerank
 from rag.custom.rag import CustomRAG
 
-MODEL_CONFIG_DIR = 'Chat_BDA/config/model_config.yaml'
+MODEL_DIR = 'Chat_BDA/config/model_config.yaml'
 PROMPT_DIR = 'Chat_BDA/config/prompt.yaml'
+BATCH_SIZE = 15  # embedding和reranker模型的批次最大大小
 
 class Executor:
-    def __init__(self, llm: BaseLanguageModel=CustomLLM(MODEL_CONFIG_DIR), config_dir: str=PROMPT_DIR):
+    def __init__(self, prompt_dir: str=PROMPT_DIR, model_dir: str=MODEL_DIR):
         # 读取配置文件
-        with open(config_dir, 'r', encoding='utf-8') as f:
+        with open(prompt_dir, 'r', encoding='utf-8') as f:
             self.templates = yaml.safe_load(f)
+        with open(model_dir, 'r', encoding='utf-8') as f:
+            self.models = yaml.safe_load(f)
         # 设置参数
-        self.llm = llm
-        self.rag = CustomRAG(llm=self.llm)
+        self.llm = CustomLLM(self.models['model_path'])
+        self.embedding = Embed(embedding_path=self.models['embedding_path'], batch_size=BATCH_SIZE)
+        self.reranker = Rerank(reranker_path=self.models['reranker_path'], batch_size=BATCH_SIZE) 
+        self.rag = CustomRAG(llm=self.llm, embedding=self.embedding, reranker=self.reranker, templates=self.templates)
         
     # 意图识别&&任务分类
     def intention_identification(self, input_text:str)->str:
@@ -37,6 +44,7 @@ class Executor:
         else:
             r = {'input_text': input_text, 'text':'无关输入'}
         return r
+    
     # 上传知识文件
     def knowledge_base_update(self, file_path:str):
         self.rag.rag_pre_process(file_path)

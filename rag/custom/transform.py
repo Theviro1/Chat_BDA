@@ -4,13 +4,12 @@ from langchain.llms.base import BaseLanguageModel
 from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from tqdm import tqdm
-import yaml
+
 
 class Transform:
-    def __init__(self, llm:BaseLanguageModel, config_dir:str):
+    def __init__(self, llm:BaseLanguageModel, templates:dict[str:str]):
         self.llm = llm
-        with open(config_dir, 'r', encoding='utf-8') as f:
-            self.templates = yaml.safe_load(f)
+        self.templates = templates
     
     def transform_documents(self, docs:List[Document])->List[str]:
         results = []

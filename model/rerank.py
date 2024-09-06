@@ -6,11 +6,9 @@ import math
 from tqdm import tqdm
 
 class Rerank:
-    def __init__(self, config_dir:str, batch_size:int=20):
-        with open(config_dir, 'r') as f:
-            config = yaml.safe_load(f)
+    def __init__(self, reranker_path:str, batch_size:int=20):
         self.device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
-        self.model_path = config['reranker_path']
+        self.model_path = reranker_path
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
         self.model = AutoModelForSequenceClassification.from_pretrained(self.model_path, trust_remote_code=True)
         self.model.to(self.device).eval()

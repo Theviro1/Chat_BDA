@@ -181,7 +181,6 @@ def handle_sum():
     # mostly user will only input right_exp by input _num params, left_exp might choose the value in default case, and then try to solve the conflict and fix left value.
     # remember only input case contain params with _num, default case doesn't. 
     # In this function, only those params in input case can generate a reformed formula, so you don't have to worry some of the _num neither can be found in input case nor can be found in default case
-    print(reformed_formulas)
     with open(FORMULAS_PATH, 'w') as f:
         f.writelines(reformed_formulas)
 

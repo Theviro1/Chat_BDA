@@ -12,13 +12,11 @@ class CustomLLM(LLM):
     tokenizer: PreTrainedTokenizer = None
     model: PreTrainedModel = None
 
-    def __init__(self, config_dir: str, **kwargs: Any):
+    def __init__(self, model_path: str, **kwargs: Any):
         # 读取配置文件加载模型
         super().__init__(**kwargs)
-        with open(config_dir, 'r') as f:
-            config = yaml.safe_load(f)
         # 设置参数
-        self.model_path = config['model_path']
+        self.model_path = model_path
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # 可使用的硬件设备
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)  # 指定模型的分词器并信任
         self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True)  # 指定模型自身并信任

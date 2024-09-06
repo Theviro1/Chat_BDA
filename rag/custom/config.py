@@ -8,13 +8,8 @@ MILVUS_HOST = 'localhost'
 MILVUS_PORT = '19530'
 MILVUS_DBNAME = 'custom_rag'
 MILVUS_CLNAME = 'knowledge_base_qa'
-# 目录配置:rerank.py/embed.py
-KNOWLEDGE_BASE_DIR = 'Chat_BDA/config/knowledge'  # 本地知识库目录
-MODEL_CONFIG_DIR = 'Chat_BDA/config/model_config.yaml'  # 模型配置目录
-PROMPT_DIR = 'Chat_BDA/config/prompt.yaml'  # prompt配置目录
 # 检索参数:milvus.py
 TOP_K = 30  # 检索数据库获取最匹配的向量数量
-BATCH_SIZE = 15  # embedding和reranker模型的批次最大大小
 DISTANCE_THRESHOLD = 100  # 相似度距离限制
 SCORE_THRESHOLD = 0.35  # 重排分数限制
 NUM_THRESHOLD = 10  # 检索数量限制

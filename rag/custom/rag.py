@@ -2,23 +2,21 @@ from typing import List
 from langchain.llms.base import BaseLanguageModel
 from langchain.prompts import PromptTemplate
 import os
-import torch
 
 from utils.logs import CustomLogger
 from rag.custom.file import FileHandler
 from rag.custom.transform import Transform
-from rag.custom.embed import Embed
-from rag.custom.rerank import Rerank
 from rag.custom.milvus import Milvus
-from rag.custom.config import MILVUS_HOST, MILVUS_PORT, MILVUS_CLNAME, MILVUS_DBNAME, CHUNK_SIZE, CHUNK_OVERLAP, CHUNK_LIMIT, MODEL_CONFIG_DIR, TOP_K, BATCH_SIZE, DISTANCE_THRESHOLD, NUM_THRESHOLD, SCORE_THRESHOLD, PROMPT_DIR
+from rag.custom.config import *
+
 
 class CustomRAG:
-    def __init__(self, llm:BaseLanguageModel):
+    def __init__(self, llm:BaseLanguageModel, embedding, reranker, templates):
         self.llm = llm
+        self.embeddings_handler = embedding
+        self.reranker_handler = reranker
         self.file_handler = FileHandler(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP, chunk_limit=CHUNK_LIMIT)
-        self.transform_handler = Transform(llm, config_dir=PROMPT_DIR)
-        self.embeddings_handler = Embed(config_dir=MODEL_CONFIG_DIR, batch_size=BATCH_SIZE)
-        self.reranker_handler = Rerank(config_dir=MODEL_CONFIG_DIR, batch_size=BATCH_SIZE)
+        self.transform_handler = Transform(llm, templates=templates)
         self.milvus_handler = Milvus(host=MILVUS_HOST, port=MILVUS_PORT, db_name=MILVUS_DBNAME, collection_name=MILVUS_CLNAME)
         self.logger_handler = CustomLogger()
         

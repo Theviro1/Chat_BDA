@@ -6,11 +6,9 @@ from typing import List
 from tqdm import tqdm
 
 class Embed:
-    def __init__(self, config_dir:str, batch_size:int=20):
-        with open(config_dir, 'r') as f:
-            config = yaml.safe_load(f)
+    def __init__(self, embedding_path:str, batch_size:int=20):
         self.device = torch.device('cuda:1' if torch.cuda.is_available else 'cpu')
-        self.model_path = config['embedding_path']
+        self.model_path = embedding_path
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_path, trust_remote_code=True)
         self.model = AutoModel.from_pretrained(self.model_path, trust_remote_code=True)
         self.model.to(self.device).eval()
