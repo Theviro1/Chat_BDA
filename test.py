@@ -1,15 +1,13 @@
-# from core.executor import Executor
-# executor = Executor()
-# query = '''
-# 你是一名自然语言实体识别领域的专家，现在你需要对一段话中涉及电池专业知识的实体进行识别，同时对于其值或者取值范围进行识别。
-# 请严格遵守如下规则：
-# 1. 对于一个实体和其值，以（实体：值）的元组形式输出，元组之间使用空格隔开
-# 2. 不需要纠结单位，如果文字中给出了单位就添加，没有给出就不添加
-# 3. 如果值是一个取值范围，使用>、<符号来表示
-# 请帮我设计一个高性能电池，堆叠数为2，电池厚度不超过2，正极涂层厚度为20，此外我还希望电池的正极辊压反弹压实密度为0.9'
+from core.executor import Executor
+executor = Executor()
+# query = '''我们需要设计一款高性能电池，其中正极材料的活性物质理论克容量应达到180mAh/g，实际克容量接近150mAh/g。
+# 正极辊压后的压实密度要求为3.2g/cm³，孔隙率保持在20%左右。
+# 正极涂布层的厚度应控制在80-85μm，反弹率不超过4%。负极材料的理论克容量为380mAh/g，实际克容量大于350mAh/g，辊压后的压实密度为1.6g/cm³，涂布层厚度应控制在55-60μm之间。
+# 此外，隔膜的厚度应小于18μm，整个卷绕结构的卷绕层数为60圈，内径为22mm。
 # '''
-# r = executor.llm(query)
-# print(r)
+# executor.params_extraction(query)
+executor.test()
+
 
 
 # freeMOD测试：success
@@ -35,13 +33,13 @@
 
 
 # 知识问答+自定义RAG联合测试：success
-from core.executor import Executor
-executor = Executor()
-query = '如果我想提高电池在高倍率下的放电容量，我可以选用尺寸更大的团聚体结构么？'
-# executor.knowledge_base_update('/home/hjl/Chat_BDA/config/knowledge/方儒卿-非体积平均锂离子电池电极层模型的构建与应用.pdf')
-r = executor.intention_identification(query)
-# r = executor.llm(query)
-print(r)
+# from core.executor import Executor
+# executor = Executor()
+# query = '如果我想提高电池在高倍率下的放电容量，我可以选用尺寸更大的团聚体结构么？'
+# # executor.knowledge_base_update('/home/hjl/Chat_BDA/config/knowledge/方儒卿-非体积平均锂离子电池电极层模型的构建与应用.pdf')
+# r = executor.intention_identification(query)
+# # r = executor.llm(query)
+# print(r)
 
 
 # 自定义logger测试：success

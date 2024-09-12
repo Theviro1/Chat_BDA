@@ -3,11 +3,15 @@ from langchain.prompts import PromptTemplate
 from langchain.llms.base import BaseLanguageModel
 from typing import Dict, Any, List
 import yaml
+import pickle
 
 from model.model import CustomLLM
 from model.embed import Embed
 from model.rerank import Rerank
+from chatie.extract import CustomExtractor
 from rag.custom.rag import CustomRAG
+
+from chatie.classifier import Classifier
 
 MODEL_DIR = 'Chat_BDA/config/model_config.yaml'
 PROMPT_DIR = 'Chat_BDA/config/prompt.yaml'
@@ -20,11 +24,13 @@ class Executor:
             self.templates = yaml.safe_load(f)
         with open(model_dir, 'r', encoding='utf-8') as f:
             self.models = yaml.safe_load(f)
-        # 设置参数
+        # 加载模型
         self.llm = CustomLLM(self.models['model_path'])
         self.embedding = Embed(embedding_path=self.models['embedding_path'], batch_size=BATCH_SIZE)
         self.reranker = Rerank(reranker_path=self.models['reranker_path'], batch_size=BATCH_SIZE) 
+        # 加载multi-agent
         self.rag = CustomRAG(llm=self.llm, embedding=self.embedding, reranker=self.reranker, templates=self.templates)
+        self.extractor = CustomExtractor(llm=self.llm, embedding=self.embedding, templates=self.templates)
         
     # 意图识别&&任务分类
     def intention_identification(self, input_text:str)->str:
@@ -60,8 +66,10 @@ class Executor:
         return r
 
     # 参数提取
-    def params_extraction(self):
-        pass
+    def params_extraction(self, input_text:str):
+        self.extractor.upload()
+        self.extractor.extract(input_text)
+
     
     # 冲突解决
     def resolve_conflict(self):
@@ -74,3 +82,21 @@ class Executor:
     # 模型优化
     def model_optimize(self):
         pass
+
+    def test(self):
+        self.extractor.load_params()
+        params = self.extractor.params
+        c = Classifier(params, self.embedding, self.llm)
+        c.label_train()
+        c.pca_train()
+        
+        # with open('Chat_BDA/chatie/data.pkl', 'rb') as f:
+        #     arr = pickle.load(f)
+        # datas = [name_replaced for name_replaced, name in arr]
+        # labels = [name for name_replaced, name in arr]
+        # c.net_train(datas, labels)
+        # c.net_save()
+
+        c.net_load()
+        c.net_predict('涂布层的厚度，负极辊压后反弹的')
+

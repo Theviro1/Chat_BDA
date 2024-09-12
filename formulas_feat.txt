@@ -138,4 +138,3 @@ v_pos_coat_roll_reb = ( L_pos_coat_total * H_pos * D_pos_coat_roll_reb ) / 10000
 
 v_neg_coat_roll_reb = ( L_neg_coat_total * H_neg * D_neg_coat_roll_reb ) / 1000000000
 
-P13

@@ -25,3 +25,10 @@ class Embed:
             batch_embeddings = [batch_embedding.tolist() for batch_embedding in batch_embeddings]
             embeddings.extend(batch_embeddings)
         return embeddings
+    
+    def embedding_single(self, sentence:str)->List[float]:
+        input = self.tokenizer(sentence, padding=True, truncation=True, return_tensors='pt').to(self.device)
+        output = self.model(**input, return_dict=True)
+        embedding = output.last_hidden_state[:, 0].tolist()[0]
+        return embedding
+

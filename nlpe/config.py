@@ -1,1 +1,0 @@
-PARAMS_INFO_PATH = 'Chat_BDA/nlpe/params.txt' 

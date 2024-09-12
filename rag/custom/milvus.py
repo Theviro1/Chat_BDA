@@ -18,7 +18,6 @@ class Milvus:
         # 检查数据库是否存在
         databases = db.list_database()
         flag = False
-        # 如果输入了一个其他数据库的名称需要报错，检查schema？TODO
         for database in databases:
             if database == self.db_name:
                 flag = True

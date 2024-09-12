@@ -1,8 +1,9 @@
 from typing import List
 from langchain.llms.base import BaseLanguageModel
-from langchain.prompts import PromptTemplate
 import os
 
+from model.embed import Embed
+from model.rerank import Rerank
 from utils.logs import CustomLogger
 from rag.custom.file import FileHandler
 from rag.custom.transform import Transform
@@ -11,7 +12,7 @@ from rag.custom.config import *
 
 
 class CustomRAG:
-    def __init__(self, llm:BaseLanguageModel, embedding, reranker, templates):
+    def __init__(self, llm:BaseLanguageModel, embedding:Embed, reranker:Rerank, templates):
         self.llm = llm
         self.embeddings_handler = embedding
         self.reranker_handler = reranker
@@ -54,7 +55,7 @@ class CustomRAG:
         scores = self.reranker_handler.rerank(pairs)
         r = zip(scores, [result['distance'] for result in results], [result['content'] for result in results])
         r = [(score-distance/DISTANCE_THRESHOLD, content) for score, distance, content in r if score > score_threshold]  # 根据score_threshold删除结果中评分不够的向量
-        r.sort(key=lambda x: x[0], reverse=True)  #使用distance和score联合对r进行重排
+        r.sort(key=lambda x: x[0], reverse=True)  #使用distance和score联合对r进行从大到小重排
         r = r[:num_threshold]  # 根据num_threshold保留指定数量的结果，避免输入语言模型的知识数量过多
         r = [content for score, content in r]
         self.logger_handler.info('RAG:post-process finished successfully.')

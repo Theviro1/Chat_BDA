@@ -10,10 +10,10 @@ c_pos_s_max_i: 正极活性物质i最大锂离子浓度
 coef_pos_ins_li: 正极等效活性物质嵌锂系数
 rou_pos_surf_cap: 正极容量面密度
 rou_pos_comp_roll: 正极辊压后压实密度
-D_pos_coat_roll: 正极辊压涂布厚度
+D_pos_coat_roll: 正极辊压涂布层厚度
 D_pos_coat_roll_reb: 正极辊压反弹后涂布厚度
 eta_pos_roll_reb: 正极辊压反弹率
-D_pos_coat_form: 正极化成涂布厚度
+D_pos_coat_form: 正极化成涂布层厚度
 D_pos_coat_form_reb: 正极化成反弹后涂布厚度
 eta_pos_form_reb: 正极化成反弹率
 rou_pos_comp_roll_reb: 正极辊压反弹后压实密度
@@ -23,14 +23,14 @@ v_pos_solid: 正极固相体积
 v_pos_act_total: 正极等效活性物质体积总和
 v_pos_binder_total: 正极粘结剂体积总和
 v_pos_conduct_total: 正极导电剂体积总和
-v_pos_coat_roll_reb: 正极辊压反弹后涂层总体积
+v_pos_coat_roll_reb: 正极辊压反弹后涂布层总体积
 m_pos_i: 正极活性物质i质量
 v_pos_i: 正极活性物质i体积
 v_pos_binder: 正极粘结剂体积
 m_pos_binder: 正极粘结剂质量
 rou_pos_binder: 正极粘结剂密度
-v_pos_coat_roll: 正极辊压后涂层总体积
-v_pos_coat_form: 正极化成后涂层总体积
+v_pos_coat_roll: 正极辊压后涂布层总体积
+v_pos_coat_form: 正极化成后涂布层总体积
 eta_pos_coat_por_roll: 正极辊压后孔隙率
 eta_pos_coat_por_roll_reb: 正极辊压反弹后孔隙率
 eta_pos_coat_por_form: 正极化成后孔隙率
@@ -47,10 +47,10 @@ c_neg_s_max_i: 负极活性物质i最大锂离子浓度
 coef_neg_ins_li: 负极等效活性物质嵌锂系数
 rou_neg_surf_cap: 负极容量面密度
 rou_neg_comp_roll: 负极辊压后压实密度
-D_neg_coat_roll: 负极辊压涂布厚度
+D_neg_coat_roll: 负极辊压涂布层厚度
 D_neg_coat_roll_reb: 负极辊压反弹后涂布厚度
 eta_neg_roll_reb: 负极辊压反弹率
-D_neg_coat_form: 负极化成涂布厚度
+D_neg_coat_form: 负极化成涂布层厚度
 D_neg_coat_form_reb: 负极化成反弹后涂布厚度
 eta_neg_form_reb: 负极化成反弹率
 rou_neg_comp_roll_reb: 负极辊压反弹后压实密度
@@ -60,14 +60,14 @@ v_neg_solid: 负极固相体积
 v_neg_act_total: 负极等效活性物质体积总和
 v_neg_binder_total: 负极粘结剂体积总和
 v_neg_conduct_total: 负极导电剂体积总和
-v_neg_coat_roll_reb: 负极辊压反弹后涂层总体积
+v_neg_coat_roll_reb: 负极辊压反弹后涂布层总体积
 m_neg_i: 负极活性物质i质量
 v_neg_i: 负极活性物质i体积
 v_neg_binder: 负极粘结剂体积
 m_neg_binder: 负极粘结剂质量
 rou_neg_binder: 负极粘结剂密度
-v_neg_coat_roll: 负极辊压后涂层总体积
-v_neg_coat_form: 负极化成后涂层总体积
+v_neg_coat_roll: 负极辊压后涂布层总体积
+v_neg_coat_form: 负极化成后涂布层总体积
 eta_neg_coat_por_roll: 负极辊压后孔隙率
 eta_neg_coat_por_roll_reb: 负极辊压反弹后孔隙率
 eta_neg_coat_por_form: 负极化成后孔隙率
@@ -83,7 +83,7 @@ W_needle: 卷针宽度
 W_needle_rect: 卷针中间矩形部分宽度
 D_repeat: 最小重复单元厚度
 cnt_line: 卷芯直边数量
-N_roll: 单个卷芯卷绕圈数
+N_roll: 卷芯卷绕圈数
 L_start_in: 起卷极片入料长度
 L_end_more: 极片长度余量
 
@@ -111,10 +111,3 @@ L_pos_single: 负极单面涂布长度
 L_pos_coat_use: 负极发挥容量涂布长度
 L_pos_coat_total: 负极总涂布长度
 H_neg: 负极极片高度
-
-叠片
-
-圆柱
-
-凸缘
-
