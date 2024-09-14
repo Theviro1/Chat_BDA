@@ -1,3 +1,4 @@
 model_path: '/home/hjl/models/llm'
 embedding_path: '/home/hjl/models/embedding/bce-embedding-base_v1'
 reranker_path: '/home/hjl/models/reranker/bce-reranker-base_v1'
+bert_path: '/home/hjl/models/bert/bert-base-chinese'

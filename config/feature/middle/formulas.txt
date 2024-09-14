@@ -1,7 +1,3 @@
-w_pos_act_mass = ( w_pos_act_mass_1 ) + ( w_pos_act_mass_2 )
-c_pos_theo_cap = ( ( w_pos_act_mass_1 / w_pos_act_mass ) * c_pos_theo_cap_1 ) + ( ( w_pos_act_mass_2 / w_pos_act_mass ) * c_pos_theo_cap_2 )
-c_pos_real_cap = ( ( w_pos_act_mass_1 / w_pos_act_mass ) * c_pos_real_cap_1 )
-c_pos_s_max = ( ( w_pos_act_mass_1 / w_pos_act_mass ) * c_pos_s_max_1 )
 coef_pos_ins_li = c_pos_real_cap / c_pos_theo_cap
 rou_pos_surf_cap = ( rou_pos_comp_roll * D_pos_coat_roll * w_pos_act_mass * c_pos_real_cap ) / 10000
 D_pos_coat_roll = ( rou_pos_surf_cap * 10000 ) / ( c_pos_real_cap * w_pos_act_mass * rou_pos_comp_roll )
@@ -10,9 +6,6 @@ D_pos_coat_form_reb = D_pos_coat_roll_reb * ( 1 + eta_pos_form_reb )
 rou_pos_comp_roll_reb = ( D_pos_coat_roll * rou_pos_comp_roll ) / D_pos_coat_roll_reb
 rou_pos_comp_form_reb = ( D_pos_coat_roll * rou_pos_comp_roll ) / D_pos_coat_form_reb
 m_pos_solid = v_pos_coat_roll_reb * rou_pos_comp_roll_reb
-m_pos_1 = w_pos_act_mass_1 * m_pos_solid
-m_pos_2 = w_pos_act_mass_2 * m_pos_solid
-v_pos_1 = ( m_pos_1 * c_pos_real_cap_1 * 3600000 ) / ( ( c_pos_real_cap_1 / c_pos_theo_cap_1 ) * F * c_pos_s_max_1 )
 v_pos_binder = m_pos_binder / rou_pos_binder
 v_pos_solid = v_pos_act_total + v_pos_binder_total + v_pos_conduct_total
 v_pos_coat_roll = ( v_pos_coat_roll_reb * D_pos_coat_roll ) / D_pos_coat_roll_reb

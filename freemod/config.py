@@ -14,7 +14,7 @@ OUTPUT_PATH = 'Chat_BDA/config/feature/out/output.txt'                  # 输出
 # 修正参数
 INF_ZERO = 1e-7     # 满足边界关系
 ERR_RANGE = 1e-3    # 允许的误差范围
-STD_DEV = 100  # 正态分布随机取默认值时的标准差
+STD_DEV = 5  # 正态分布随机取默认值时的标准差
 RETRY_TIMES = 20  # 数值解方程时如果无解会重新随机选取初值，最多重复的次数，超出这个次数之后认为无解
 DEFAULT_LOWER_BOUND = -10000
 DEFAULT_UPPER_BOUND = 10000

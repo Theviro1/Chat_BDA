@@ -5,10 +5,10 @@ import re
 import ast
 import hashlib
 from typing import Dict, List
-import pickle
 import matplotlib.pyplot as plt
 
 
+from chatie.formatter import Formatter
 from model.embed import Embed
 from chatie.config import *
 from chatie.milvus import Milvus
@@ -16,28 +16,40 @@ from chatie.classifier import Classifier
 
 class CustomExtractor:
     def __init__(self, llm:BaseLanguageModel, embedding:Embed, templates:dict[str:str]):
-        # init
         self.llm = llm
         self.embedding = embedding
         self.templates = templates
-        # params
-        self.params = []  # list of tuple like (name, symbol)
-        self.extraction = []  # list of tuple like (name, value, unit)
+        # initialization
+        self.params = self.load_params()  # list of tuple like (name, symbol, unit)
         # handlers
         self.milvus = Milvus()
-        self.classifier = Classifier(self.embedding, self.templates)
+        self.classifier = Classifier(self.params, self.embedding, self.templates)
+        self.formatter = Formatter(self.params)
 
+    # ----------------------functions for processing-----------------------
     # initialize all params
     def load_params(self, params_dir:str = PARAMS_INFO_PATH):
         with open(params_dir, 'r') as f:
             lines = f.readlines()
+        params = []
         for line in lines:
             if line.strip() == '' or line.startswith('#'):
                 continue
-            symbol, name = [part.strip() for part in line.split(': ')][:2]
-            self.params.append((name, symbol))
-        self.classifier.set_params(self.params)
+            symbol, name, unit = [part.strip() for part in line.split(': ')][:3]
+            params.append((name, symbol, unit))
+        return params
+    
 
+    # ----------------------functions for formatter-----------------------
+    def filter_phrase(self, input_text:str):
+        # filter phrases based on input text
+        return self.formatter.filter(input_text)
+
+    def handle_result(self, extraction):
+        pass
+    
+
+    # ----------------------functions for milvus-----------------------
     # upload examples
     def upload(self, examples_path:str=EXAMPLES_PATH):
         self.clear_data()
@@ -69,41 +81,18 @@ class CustomExtractor:
         self.milvus.clear()
         self.milvus.init()  # delete and re-initialize
 
-    # auto generate training data
-    def generate_data(self, save_path:str=NET_TRAINING_DATA_PATH):
-        # use LLM to generate structured training data
-        data_list=[]
-        for name, symbol in self.params:
-            prompt = PromptTemplate.from_template(self.templates['data_generation_prompt'])
-            chain = LLMChain(llm=self.llm, prompt=prompt)
-            r = chain(inputs={'input_text':name})['text']
-            print(r)
-            # format should be a python list, because it's an easy task so we can fully trust LLM
-            results = ast.literal_eval(r)
-            data_list.extend([(result, name) for result in results])
-        with open(save_path, 'wb') as f:
-            pickle.dump(data_list, f)
     
-    # train the classifier net
-    def train_net(self):
-        self.generate_data()
-        with open(NET_TRAINING_DATA_PATH, 'rb') as f:
-            arr = pickle.load(f)
-        datas = [name_replaced for name_replaced, name in arr]
-        labels = [name for name_replaced, name in arr]
-        losses = self.classifier.net_train(datas, labels)
-        self.classifier.net_save()
-    
-    # load the classifier net
-    def load_net(self):
-        self.classifier.net_load()
-    
+    # ----------------------functions for classifier-----------------------
     # use the classifier net
-    def classify(self, param:str):
-        return self.classifier.net_predict(param)
+    def classify(self, phrase:str):
+        return self.classifier.classify(phrase)
     
+
+
+    # ----------------------main functions-----------------------
     # preprocess natural language input
     def extract_params_preprocess(self, query:str, examples:List[Dict])->str:
+        # define templates
         example_prompt = PromptTemplate.from_template(self.templates['params_extraction_example_prompt'])
         suffix = self.templates['params_extraction_suffix_prompt']
         prefix = self.templates['params_extraction_preprocess_prompt']
@@ -112,41 +101,61 @@ class CustomExtractor:
         r = chain(inputs={'input_text':query})['text']
         return r
     
-
     # extract all params from preprocessed input
     def extract_params_main(self, query:str, examples:List[Dict]):
+        # define templates
         example_prompt = PromptTemplate.from_template(self.templates['params_extraction_example_prompt'])
         suffix = self.templates['params_extraction_suffix_prompt']
         prefix = self.templates['params_extraction_prompt']
         prompt = FewShotPromptTemplate(examples=examples, example_prompt=example_prompt, suffix=suffix, prefix=prefix, input_variables=['input_text', 'knowledge'])
         chain = LLMChain(llm=self.llm, prompt=prompt, verbose=True)
-        knowledge = '，'.join([name for name, symbol in self.params])
+        # prepare knowledge
+        phrases = self.formatter.filter(query)
+        knowledge = '，'.join(phrases)
         r = chain(inputs={'input_text':query, 'knowledge':knowledge})['text']
         pattern = r'\([^\)]+\)\s*'
         matches = re.findall(pattern, r)
+        extraction = []
         for match in matches:
             name, value, unit = ast.literal_eval(match.strip())
-            self.extraction.append((name, value, unit))  # list of tuple like (name, value, unit)
-
+            extraction.append((name, value, unit))  # list of tuple like (name, value, unit)
+        return extraction
 
     # reinforce result
-    def extract_params_postprocess(self):
-        pass
+    def extract_params_postprocess(self, extraction:List[tuple])->tuple:
+        param_names = [name for name, _, _ in self.params]
+        fixed_extraction = []
+        # obtain correct name&symbol
+        for name, value, unit in extraction:
+            if name not in param_names: 
+                fixed_name = self.classify(name)
+                print(f'fix {name} to {fixed_name} by classifier')
+            else: fixed_name = name
+            fixed_symbol, standard_unit = [(symbol, unit) for name, symbol, unit in self.params if name == fixed_name][0]
+            fixed_extraction.append((fixed_name, fixed_symbol, value, unit, standard_unit))  # list of tuple like (name, symbol, value, unit, standard_unit)
+        # handle unit difference
+        eqs, ineqs = self.formatter.handle(fixed_extraction)
+        return eqs, ineqs
+        
 
 
-    # extract prrams
-    def extract(self, query:str, train_net:bool=False):
+    
+    def extract(self, query:str):
         # retrieve&process examples for database
         examples = self.retrieve(query)
         examples4preprocess = [{'example_question':example['question_r'], 'example_answer':example['question_p']} for example in examples]
         examples4extract = [{'example_question':example['question_p'], 'example_answer':example['answer']} for example in examples]
-        # load params&train net/load net
-        self.load_params()
-        if train_net: self.train_net()
-        self.load_net()
+        # prepare classifier
+        self.classifier.initialize()
         # extract params
         query = self.extract_params_preprocess(query, examples4preprocess)
         print(f'extract preprocess result:{query}')
-        self.extract_params_main(query, examples4extract)
-        print(f'extract main result:{self.extraction}')
-        
+        extraction = self.extract_params_main(query, examples4extract)
+        print(f'extract main result:{extraction}')
+        eqs, ineqs = self.extract_params_postprocess(extraction)
+        # write into feature files
+        with open(INPUT_CASE_PATH, 'w') as f:
+            f.write('\n'.join(eqs))
+        with open(INEQS_PATH, 'w') as f:
+            f.write('\n'.join(ineqs))
+

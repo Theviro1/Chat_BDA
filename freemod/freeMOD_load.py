@@ -190,13 +190,44 @@ def handle_sum():
 def handle_ineqs():
     # simply fix bound.txt, don't fix input_case.
     default_bound = input_case(DEFAULT_BOUND_PATH)
-    pattern = r'(((-?\d+(\.\d+)?)\s*([<>]=?|geq|leq)\s*)?(\w+)(\s*([<>]=?|geq|leq)\s*(-?\d+(\.\d+)?))?)'  # To match inequlity expression
+    pattern = r'(((-?\d+(\.\d+)?)\s*([<>]=?|geq|leq)\s*)?(\w+)(\s*([<>]=?|geq|leq)\s*(-?\d+(\.\d+)?))?)?'  # To match inequlity expression
     with open(INEQS_PATH, 'r', encoding='utf-8') as f:
         s = f.read().strip()
     matches = re.findall(pattern, s)
     for match in matches:
-        expression, pn, left_value, right_value, left_sign, right_sign = match[0], match[5], float(match[2]), float(match[8]), match[4], match[7]
-        # clip the limitation
+        expression, pn, left_value, right_value, left_sign, right_sign = match[0], match[5], match[2], match[8], match[4], match[7]
+        if pn not in default_bound.keys():
+            # maybe user input param_1 in ineqs, but handle_i() indicate no proper input can be found in param_1's formula which is abolished, no param_1 exist in formulas.txt.
+            # in any condition if a param is abolished and not exist in formulas.txt(especially param with '_i'), but still inputted in input_case.txt or ineqs.txt, ignore it.
+            continue
+        if left_value == '' and right_value == '':
+            continue
+        elif left_value == '' and right_value != '':
+            # this means left is empty, consider right
+            right_value = float(right_value)
+            if right_sign == '>' and default_bound[pn][0] <= right_value:
+                default_bound[pn][0] = right_value + INF_ZERO
+            if right_sign == '>=' and default_bound[pn][1] < right_value:
+                default_bound[pn][0] = right_value 
+            if right_sign == '<' and default_bound[pn][1] >= right_value:
+                default_bound[pn][1] = right_value - INF_ZERO
+            if right_sign == '<=' and default_bound[pn][1] > right_value:
+                default_bound[pn][1] = right_value
+            continue
+        elif left_value != '' and right_value == '':
+            # this means right is empty, consider left
+            left_value = float(left_value)
+            if left_sign == '>' and default_bound[pn][1] >= left_value:
+                default_bound[pn][1] = left_value - INF_ZERO
+            if left_sign == '>=' and default_bound[pn][1] > left_value:
+                default_bound[pn][1] = left_value
+            if left_sign == '<' and default_bound[pn][0] <= left_value:
+                default_bound[pn][0] = left_value + INF_ZERO
+            if left_sign == '<=' and default_bound[pn][0] < left_value:
+                default_bound[pn][0] = left_value
+            continue
+        # clip the limitation, both left&right is inputted
+        left_value, right_value = float(left_value), float(right_value)
         # if it's consist of .. > pn >= ..
         if left_sign == '>' and default_bound[pn][1] >= left_value:
             default_bound[pn][1] = left_value - INF_ZERO

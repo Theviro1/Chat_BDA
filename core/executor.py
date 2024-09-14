@@ -3,15 +3,13 @@ from langchain.prompts import PromptTemplate
 from langchain.llms.base import BaseLanguageModel
 from typing import Dict, Any, List
 import yaml
-import pickle
 
 from model.model import CustomLLM
 from model.embed import Embed
 from model.rerank import Rerank
-from chatie.extract import CustomExtractor
+from freemod import freeMOD
+from chatie.extractor import CustomExtractor
 from rag.custom.rag import CustomRAG
-
-from chatie.classifier import Classifier
 
 MODEL_DIR = 'Chat_BDA/config/model_config.yaml'
 PROMPT_DIR = 'Chat_BDA/config/prompt.yaml'
@@ -37,23 +35,13 @@ class Executor:
         prompt = PromptTemplate.from_template(self.templates['intention_identification_prompt'])
         llm = self.llm
         chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
-        inputs = {'input_text': input_text}
-        t = chain(inputs=inputs)['text']
-        print(t)
-        # 要求r在函数内被处理，是一个字符串对象
-        if t=='知识问答':
-            r = self.knowledge_base_qa(input_text)
-        elif t=='新品设计':
-            r = self.product_design()
-        elif t=='模型优化':
-            r = self.model_optimize()
-        else:
-            r = {'input_text': input_text, 'text':'无关输入'}
+        r = chain(inputs={'input_text': input_text})['text']
         return r
     
     # 上传知识文件
     def knowledge_base_update(self, file_path:str):
         self.rag.rag_pre_process(file_path)
+        self.extractor.upload()
 
     # 知识问答
     def knowledge_base_qa(self, input_text:str)->str:
@@ -65,38 +53,29 @@ class Executor:
         r = chain(inputs=inputs)['text']
         return r
 
-    # 参数提取
-    def params_extraction(self, input_text:str):
-        self.extractor.upload()
-        self.extractor.extract(input_text)
-
-    
-    # 冲突解决
-    def resolve_conflict(self):
-        pass
-
     # 新品设计
-    def product_design(self):
-        pass
+    def product_design(self, input_text:str):
+        self.extractor.extract(input_text)
+        r = freeMOD.run()
+        return r
+
 
     # 模型优化
     def model_optimize(self):
         pass
 
-    def test(self):
-        self.extractor.load_params()
-        params = self.extractor.params
-        c = Classifier(params, self.embedding, self.llm)
-        c.label_train()
-        c.pca_train()
-        
-        # with open('Chat_BDA/chatie/data.pkl', 'rb') as f:
-        #     arr = pickle.load(f)
-        # datas = [name_replaced for name_replaced, name in arr]
-        # labels = [name for name_replaced, name in arr]
-        # c.net_train(datas, labels)
-        # c.net_save()
+    def execute(self, query:str):
+        intention = self.intention_identification(query)
+        print(intention)
+        if intention=='知识问答': 
+            r = self.knowledge_base_qa(query)
+        elif intention=='新品设计': 
+            r = self.product_design(query)
+        elif intention=='模型优化': 
+            r = self.model_optimize()
+        else: 
+            r = '无关输入'
+        print(r)
+        return r
 
-        c.net_load()
-        c.net_predict('涂布层的厚度，负极辊压后反弹的')
 

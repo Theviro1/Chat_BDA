@@ -7,6 +7,8 @@ import scipy
 import ast
 import json
 import re
+
+from tqdm import tqdm
 from freemod.config import *
 
 input_relas = []
@@ -88,6 +90,7 @@ def get_exp(rid, with_x=False, pid=-1)->str:
     lost_name = input_paras[pid]['ParaName']
     lost_value = str(input_paras[pid]['Value'])
     formula = str(input_relas[rid]['Formula'])
+    formula = formula + ' '  # deal the situation '.. + param_n' and we need to replace 'param_n ' with '100 ', the target symbol at the end of the formula
     formula = formula.replace('Max', '$').replace('Min', '#').replace('ceiling', '@').replace('floor', '&')
     # replace other params with exact value
     Pn_sort_by_len = [[input_paras[pid]['ParaName'], pid] for pid in input_relas[rid]['Pn']]
@@ -96,14 +99,17 @@ def get_exp(rid, with_x=False, pid=-1)->str:
     for pid in Pn_sort_by_len:
         name = input_paras[pid]['ParaName']
         if pid != lost_pid:    
-            value = str(input_paras[pid]['Value'])
-            formula = formula.replace(name, value)
-    # replace the target one with 'x'
+            value = str(input_paras[pid]['Value'])  # if a param has no value inputted or inferred, the value default is param's name, so it will not be changed
+            # during auto_infer, we can make sure all values are inputted or inferred and won't use param name as default value. 
+            # during auto_gen, we try to replace those inputted or inferred param with it's value, and keep the param name for those who doesn't.
+            formula = formula.replace(name+' ', value+' ')  # in auto_gen case '.. + param_nan', we wanna replace 'param_n' with '100' and got '100an', so we need to add a space for accurate distinguish
+    # replace the lost name with 'x' or actual value, if no lost_pid input nothing happens
     if with_x: 
-        formula = formula.replace(lost_name, 'x')
+        formula = formula.replace(lost_name, 'x')  # this is for equation solving, try infer the lost value
     else:
-        formula = formula.replace(lost_name, lost_value)
+        formula = formula.replace(lost_name, lost_value)  # this is for equation check, try judge whether the rela can be satisfied by currenct values
     formula = formula.replace('$', 'Max').replace('#', 'Min').replace('@', 'ceiling').replace('&', 'floor')
+    formula = formula.rstrip()
     return formula
 
 
@@ -305,11 +311,11 @@ def auto_infer():
 
 # Part V. solve equations
 
-eq_formula_infos = []
-eq_formula_exps = []
-eq_param2id = {}
-eq_id2param = {}
-eq_param_init = []
+eq_formula_infos = []  # record some informations in replaced formula
+eq_formula_exps = []  # record the replaced formula
+eq_param2id = {}  # reflection from param to id
+eq_id2param = {}  # reflection from id to param
+eq_param_init = []  # a bunch of random initial value for all unknown params
 
 def replace():
     # after inferring, replace all the inferred param with it's value.
@@ -405,7 +411,7 @@ def auto_gen():
         return True
     times = 0
     # try to find a proper initial value
-    for i in range(RETRY_TIMES):
+    for _ in tqdm(range(RETRY_TIMES), desc='trying a bunch of initial values'):
         times += 1
         solvable = solve()
         if solvable: break
@@ -427,15 +433,21 @@ def output():
     with open(OUTPUT_PATH, 'w') as f:
         json.dump(out_dict, f, indent=4)
 
+def result():
+    with open(OUTPUT_PATH, 'r') as f:
+        result = f.read()        
+    return ast.literal_eval(result)
 
 def run():
     load_inputs()
     inferable = auto_infer()
     if not inferable: 
         print('infer unsolvable')
-        return 
+        return ''
     solvable = auto_gen()
     if not solvable: 
         print('generate unsolvable')
-        return
+        return ''
     output()
+    return result()
+    

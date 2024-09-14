@@ -1,8 +1,8 @@
-w_pos_act_mass_1 = 10
-w_pos_act_mass_2 = 20
-c_pos_real_cap_1 = 5
-c_pos_s_max_1 = 9
-c_pos_theo_cap_1 = 1
-c_pos_theo_cap_2 = 2
-m_pos_solid = 10
-F = 2000000
+c_pos_theo_cap = 180.0
+c_pos_real_cap = 150.0
+rou_pos_comp_roll = 3.2
+eta_pos_coat_por_roll = 0.2
+c_neg_theo_cap_1 = 380.0
+rou_neg_comp_roll = 1.6
+N_roll = 60.0
+R_0_pos = 22000.0

@@ -22,9 +22,9 @@ def prepare():
     return True
 
 def infer():
-    freeMOD_infer.run()
+    return freeMOD_infer.run()
 
 def run():
     success = prepare()
-    if success: infer()
+    if success: return infer()
     else: print('loading failed, please follow the instruction and fix your input files')

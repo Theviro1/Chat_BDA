@@ -1,1 +1,5 @@
-
+80 <= D_pos_coat_form <= 85
+eta_pos_roll_reb <= 0.04
+c_neg_real_cap >= 350.0
+55 <= D_neg_coat_form <= 60
+D_sep < 18

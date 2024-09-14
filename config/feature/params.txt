@@ -1,113 +1,114 @@
 # 通用
-w_pos_act_mass: 正极活性物质质量分数总和
-w_pos_act_mass_i: 正极活性物质i质量分数
-c_pos_theo_cap: 正极等效活性物质理论克容量
-c_pos_theo_cap_i: 正极活性物质i理论克容量
-c_pos_real_cap: 正极等效活性物质实际克容量
-c_pos_real_cap_i: 正极活性物质i实际克容量
-c_pos_s_max: 正极等效活性物质最大锂离子浓度
-c_pos_s_max_i: 正极活性物质i最大锂离子浓度
-coef_pos_ins_li: 正极等效活性物质嵌锂系数
-rou_pos_surf_cap: 正极容量面密度
-rou_pos_comp_roll: 正极辊压后压实密度
-D_pos_coat_roll: 正极辊压涂布层厚度
-D_pos_coat_roll_reb: 正极辊压反弹后涂布厚度
-eta_pos_roll_reb: 正极辊压反弹率
-D_pos_coat_form: 正极化成涂布层厚度
-D_pos_coat_form_reb: 正极化成反弹后涂布厚度
-eta_pos_form_reb: 正极化成反弹率
-rou_pos_comp_roll_reb: 正极辊压反弹后压实密度
-rou_pos_comp_form_reb: 正极化成反弹后压实密度
-m_pos_solid: 正极固相质量
-v_pos_solid: 正极固相体积
-v_pos_act_total: 正极等效活性物质体积总和
-v_pos_binder_total: 正极粘结剂体积总和
-v_pos_conduct_total: 正极导电剂体积总和
-v_pos_coat_roll_reb: 正极辊压反弹后涂布层总体积
-m_pos_i: 正极活性物质i质量
-v_pos_i: 正极活性物质i体积
-v_pos_binder: 正极粘结剂体积
-m_pos_binder: 正极粘结剂质量
-rou_pos_binder: 正极粘结剂密度
-v_pos_coat_roll: 正极辊压后涂布层总体积
-v_pos_coat_form: 正极化成后涂布层总体积
-eta_pos_coat_por_roll: 正极辊压后孔隙率
-eta_pos_coat_por_roll_reb: 正极辊压反弹后孔隙率
-eta_pos_coat_por_form: 正极化成后孔隙率
+w_pos_act_mass: 正极活性物质质量分数总和: %
+w_pos_act_mass_i: 正极活性物质i质量分数: %
+c_pos_theo_cap: 正极等效活性物质理论克容量: mAh/g
+c_pos_theo_cap_i: 正极活性物质i理论克容量: mAh/g
+c_pos_real_cap: 正极等效活性物质实际克容量: mAh/g
+c_pos_real_cap_i: 正极活性物质i实际克容量: mAh/g
+c_pos_s_max: 正极等效活性物质最大锂离子浓度: mol/m³
+c_pos_s_max_i: 正极活性物质i最大锂离子浓度: mol/m³
+coef_pos_ins_li: 正极等效活性物质嵌锂系数: None
+rou_pos_surf_cap: 正极容量面密度: g/cm²
+rou_pos_comp_roll: 正极辊压后压实密度: g/cm³
+D_pos_coat_roll: 正极辊压涂布层厚度: μm
+D_pos_coat_roll_reb: 正极辊压反弹后涂布厚度: μm
+eta_pos_roll_reb: 正极辊压反弹率: %
+D_pos_coat_form: 正极化成涂布层厚度: μm
+D_pos_coat_form_reb: 正极化成反弹后涂布厚度: μm
+eta_pos_form_reb: 正极化成反弹率: %
+rou_pos_comp_roll_reb: 正极辊压反弹后压实密度: g/cm³
+rou_pos_comp_form_reb: 正极化成反弹后压实密度: g/cm³
+m_pos_solid: 正极固相质量: g
+v_pos_solid: 正极固相体积: cm³
+v_pos_act_total: 正极等效活性物质体积总和: cm³
+v_pos_binder_total: 正极粘结剂体积总和: cm³
+v_pos_conduct_total: 正极导电剂体积总和: cm³
+v_pos_coat_roll_reb: 正极辊压反弹后涂布层总体积: g/cm³
+m_pos_i: 正极活性物质i质量: g
+v_pos_i: 正极活性物质i体积: cm³
+v_pos_binder: 正极粘结剂体积: cm³
+m_pos_binder: 正极粘结剂质量: g
+rou_pos_binder: 正极粘结剂密度: g/cm³
+v_pos_coat_roll: 正极辊压后涂布层总体积: cm³
+v_pos_coat_form: 正极化成后涂布层总体积: cm³
+eta_pos_coat_por_roll: 正极辊压后孔隙率: %
+eta_pos_coat_por_roll_reb: 正极辊压反弹后孔隙率: %
+eta_pos_coat_por_form: 正极化成后孔隙率: %
 
 
-w_neg_act_mass: 负极活性物质质量分数总和
-w_neg_act_mass_i: 负极活性物质i质量分数
-c_neg_theo_cap: 负极等效活性物质理论克容量
-c_neg_theo_cap_i: 负极活性物质i理论克容量
-c_neg_real_cap: 负极等效活性物质实际克容量
-c_neg_real_cap_i: 负极活性物质i实际克容量
-c_neg_s_max: 负极等效活性物质最大锂离子浓度
-c_neg_s_max_i: 负极活性物质i最大锂离子浓度
-coef_neg_ins_li: 负极等效活性物质嵌锂系数
-rou_neg_surf_cap: 负极容量面密度
-rou_neg_comp_roll: 负极辊压后压实密度
-D_neg_coat_roll: 负极辊压涂布层厚度
-D_neg_coat_roll_reb: 负极辊压反弹后涂布厚度
-eta_neg_roll_reb: 负极辊压反弹率
-D_neg_coat_form: 负极化成涂布层厚度
-D_neg_coat_form_reb: 负极化成反弹后涂布厚度
-eta_neg_form_reb: 负极化成反弹率
-rou_neg_comp_roll_reb: 负极辊压反弹后压实密度
-rou_neg_comp_form_reb: 负极化成反弹后压实密度
-m_neg_solid: 负极固相质量
-v_neg_solid: 负极固相体积
-v_neg_act_total: 负极等效活性物质体积总和
-v_neg_binder_total: 负极粘结剂体积总和
-v_neg_conduct_total: 负极导电剂体积总和
-v_neg_coat_roll_reb: 负极辊压反弹后涂布层总体积
-m_neg_i: 负极活性物质i质量
-v_neg_i: 负极活性物质i体积
-v_neg_binder: 负极粘结剂体积
-m_neg_binder: 负极粘结剂质量
-rou_neg_binder: 负极粘结剂密度
-v_neg_coat_roll: 负极辊压后涂布层总体积
-v_neg_coat_form: 负极化成后涂布层总体积
-eta_neg_coat_por_roll: 负极辊压后孔隙率
-eta_neg_coat_por_roll_reb: 负极辊压反弹后孔隙率
-eta_neg_coat_por_form: 负极化成后孔隙率
+w_neg_act_mass: 负极活性物质质量分数总和: %
+w_neg_act_mass_i: 负极活性物质i质量分数: %
+c_neg_theo_cap: 负极等效活性物质理论克容量: mAh/g
+c_neg_theo_cap_i: 负极活性物质i理论克容量: mAh/g
+c_neg_real_cap: 负极等效活性物质实际克容量: mAh/g
+c_neg_real_cap_i: 负极活性物质i实际克容量: mAh/g
+c_neg_s_max: 负极等效活性物质最大锂离子浓度: mol/m³
+c_neg_s_max_i: 负极活性物质i最大锂离子浓度: mol/m³
+coef_neg_ins_li: 负极等效活性物质嵌锂系数: None
+rou_neg_surf_cap: 负极容量面密度: g/cm³
+rou_neg_comp_roll: 负极辊压后压实密度: g/cm³
+D_neg_coat_roll: 负极辊压涂布层厚度: μm
+D_neg_coat_roll_reb: 负极辊压反弹后涂布厚度: μm
+eta_neg_roll_reb: 负极辊压反弹率: %
+D_neg_coat_form: 负极化成涂布层厚度: μm
+D_neg_coat_form_reb: 负极化成反弹后涂布厚度: μm
+eta_neg_form_reb: 负极化成反弹率: %
+rou_neg_comp_roll_reb: 负极辊压反弹后压实密度: g/cm³
+rou_neg_comp_form_reb: 负极化成反弹后压实密度: g/cm³
+m_neg_solid: 负极固相质量: g
+v_neg_solid: 负极固相体积: cm³
+v_neg_act_total: 负极等效活性物质体积总和: cm³
+v_neg_binder_total: 负极粘结剂体积总和: cm³
+v_neg_conduct_total: 负极导电剂体积总和: cm³
+v_neg_coat_roll_reb: 负极辊压反弹后涂布层总体积: cm³
+m_neg_i: 负极活性物质i质量: g
+v_neg_i: 负极活性物质i体积: cm³
+v_neg_binder: 负极粘结剂体积: cm³
+m_neg_binder: 负极粘结剂质量: g
+rou_neg_binder: 负极粘结剂密度: g/cm³
+v_neg_coat_roll: 负极辊压后涂布层总体积: cm³
+v_neg_coat_form: 负极化成后涂布层总体积: cm³
+eta_neg_coat_por_roll: 负极辊压后孔隙率: %
+eta_neg_coat_por_roll_reb: 负极辊压反弹后孔隙率: %
+eta_neg_coat_por_form: 负极化成后孔隙率: %
 
 
-NP: np系数比例
-F: 法拉第常数
+NP: np系数比例: None
+F: 法拉第常数: C/mol
 
 # 方卷
-D_sep: 隔膜厚度
-D_needle: 卷针厚度
-W_needle: 卷针宽度
-W_needle_rect: 卷针中间矩形部分宽度
-D_repeat: 最小重复单元厚度
-cnt_line: 卷芯直边数量
-N_roll: 卷芯卷绕圈数
-L_start_in: 起卷极片入料长度
-L_end_more: 极片长度余量
+D_sep: 隔膜厚度: μm
+D_needle: 卷针厚度: μm
+W_needle: 卷针宽度: μm
+W_needle_rect: 卷针中间矩形部分宽度: μm
+D_repeat: 最小重复单元厚度: μm
+cnt_line: 卷芯直边数量: None
+N_roll: 卷芯卷绕圈数: None
+L_start_in: 起卷极片入料长度: μm
+L_end_more: 极片长度余量: μm
 
 
-D_pos_cc: 正极集流体厚度
-R_0_pos: 正极内径
-L_pos_total: 正极极片总长
-L_pos_first: 正极极片第一圈长
-L_pos_nroll_last: 正极极片Nroll-1圈长
-L_pos_out: 正极极片最外圈长
-L_pos_single: 正极单面涂布长度
-L_pos_coat_use: 正极发挥容量涂布长度
-L_pos_coat_total: 正极总涂布长度
-H_pos: 正极极片高度
-v_pos_coat_roll_reb_use: 发挥容量的辊压反弹后体积
+D_pos_cc: 正极集流体厚度: μm
+R_0_pos: 正极内径: μm
+L_pos_total: 正极极片总长: μm
+L_pos_first: 正极极片第一圈长: μm
+L_pos_nroll_last: 正极极片Nroll-1圈长: μm
+L_pos_out: 正极极片最外圈长: μm
+L_pos_single: 正极单面涂布长度: μm
+L_pos_coat_use: 正极发挥容量涂布长度: μm
+L_pos_coat_total: 正极总涂布长度: μm
+H_pos: 正极极片高度: μm
+v_pos_coat_roll_reb_use: 正极发挥容量的辊压反弹后体积: cm³
 
 
-D_neg_cc: 负极集流体厚度
-R_0_neg: 负极内径
-L_neg_total: 负极极片总长
-L_neg_first: 负极极片第一圈长
-L_neg_nroll_last: 负极极片Nroll-1圈长
-L_neg_out: 负极极片最外圈长
-L_pos_single: 负极单面涂布长度
-L_pos_coat_use: 负极发挥容量涂布长度
-L_pos_coat_total: 负极总涂布长度
-H_neg: 负极极片高度
+D_neg_cc: 负极集流体厚度: μm
+R_0_neg: 负极内径: μm
+L_neg_total: 负极极片总长: μm
+L_neg_first: 负极极片第一圈长: μm
+L_neg_nroll_last: 负极极片Nroll-1圈长: μm
+L_neg_out: 负极极片最外圈长: μm
+L_pos_single: 负极单面涂布长度: μm
+L_pos_coat_use: 负极发挥容量涂布长度: μm
+L_pos_coat_total: 负极总涂布长度: μm
+H_neg: 负极极片高度: μm
+# v_neg_coat_roll_reb_use: 负极发挥容量的辊压反弹后体积: cm³

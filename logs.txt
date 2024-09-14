@@ -10,3 +10,271 @@
 2024-09-11 11:43:04,738 - pymilvus.decorators - ERROR - RPC error: [insert_rows], <DataNotMatchException: (code=1, message=The Input data type is inconsistent with defined schema, please check it.)>, <Time:{'RPC start': '2024-09-11 11:43:04.735283', 'RPC error': '2024-09-11 11:43:04.738879'}>
 2024-09-11 11:46:42,285 - pymilvus.decorators - ERROR - RPC error: [query], <MilvusException: (code=65535, message=field content_question_answer not exist)>, <Time:{'RPC start': '2024-09-11 11:46:42.282357', 'RPC error': '2024-09-11 11:46:42.284945'}>
 2024-09-11 11:46:42,285 - pymilvus.decorators - ERROR - RPC error: [query], <MilvusException: (code=65535, message=field content_question_answer not exist)>, <Time:{'RPC start': '2024-09-11 11:46:42.282357', 'RPC error': '2024-09-11 11:46:42.284945'}>
+2024-09-13 15:04:45,696 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:04:45,696 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:04:45,698 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:04:45,698 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:04:45,700 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:04:45.698286', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:04:45,700 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:04:45.698286', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:04:45,701 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:04:45,701 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:04:45,701 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:04:45,701 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:04:45,702 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:04:45.702445', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:04:45,702 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:04:45.702445', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:07:10,457 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:07:10,457 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:07:10,459 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:07:10,459 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:07:10,462 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:07:10.459275', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:07:10,462 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:07:10.459275', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:07:10,462 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:07:10,462 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:07:10,462 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:07:10,462 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:07:10,463 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:07:10.463360', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:07:10,463 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:07:10.463360', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:08:58,455 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:08:58,455 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:08:58,456 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:08:58,456 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:08:58,459 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:08:58.456584', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:08:58,459 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:08:58.456584', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:08:58,459 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:08:58,459 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:08:58,460 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:08:58,460 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:08:58,460 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:08:58.460636', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:08:58,460 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:08:58.460636', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:11:30,462 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:11:30,462 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:11:30,463 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:11:30,463 - gensim.corpora.dictionary - INFO - built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)
+2024-09-13 15:11:30,466 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:11:30.463932', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:11:30,466 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<101 unique tokens: ['分', '和', '性', '总', '数']...> from 103 documents (total 936 corpus positions)", 'datetime': '2024-09-13T15:11:30.463932', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:11:30,467 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:11:30,467 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:11:30,467 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:11:30,467 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:11:30,467 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:11:30.467980', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:11:30,467 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 101 features (915 matrix non-zeros)', 'datetime': '2024-09-13T15:11:30.467980', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:18:12,455 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:18:12,455 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:18:12,920 - jieba - DEBUG - Dumping model to file cache /tmp/jieba.cache
+2024-09-13 15:18:12,920 - jieba - DEBUG - Dumping model to file cache /tmp/jieba.cache
+2024-09-13 15:18:12,963 - jieba - DEBUG - Loading model cost 0.508 seconds.
+2024-09-13 15:18:12,963 - jieba - DEBUG - Loading model cost 0.508 seconds.
+2024-09-13 15:18:12,963 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:18:12,963 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:18:12,967 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:18:12,967 - gensim.corpora.dictionary - INFO - adding document #0 to Dictionary<0 unique tokens: []>
+2024-09-13 15:18:12,968 - gensim.corpora.dictionary - INFO - built Dictionary<78 unique tokens: ['分数', '总和', '正极', '活性', '物质']...> from 103 documents (total 515 corpus positions)
+2024-09-13 15:18:12,968 - gensim.corpora.dictionary - INFO - built Dictionary<78 unique tokens: ['分数', '总和', '正极', '活性', '物质']...> from 103 documents (total 515 corpus positions)
+2024-09-13 15:18:12,971 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<78 unique tokens: ['分数', '总和', '正极', '活性', '物质']...> from 103 documents (total 515 corpus positions)", 'datetime': '2024-09-13T15:18:12.968248', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:18:12,971 - gensim.utils - INFO - Dictionary lifecycle event {'msg': "built Dictionary<78 unique tokens: ['分数', '总和', '正极', '活性', '物质']...> from 103 documents (total 515 corpus positions)", 'datetime': '2024-09-13T15:18:12.968248', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'created'}
+2024-09-13 15:18:12,971 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:18:12,971 - gensim.models.tfidfmodel - INFO - collecting document frequencies
+2024-09-13 15:18:12,972 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:18:12,972 - gensim.models.tfidfmodel - INFO - PROGRESS: processing document #0
+2024-09-13 15:18:12,972 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 78 features (515 matrix non-zeros)', 'datetime': '2024-09-13T15:18:12.972831', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:18:12,972 - gensim.utils - INFO - TfidfModel lifecycle event {'msg': 'calculated IDF weights for 103 documents and 78 features (515 matrix non-zeros)', 'datetime': '2024-09-13T15:18:12.972831', 'gensim': '4.3.3', 'python': '3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]', 'platform': 'Linux-6.2.0-37-generic-x86_64-with-glibc2.35', 'event': 'initialize'}
+2024-09-13 15:36:53,687 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:36:53,687 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:36:53,688 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:36:53,688 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:36:54,174 - jieba - DEBUG - Loading model cost 0.486 seconds.
+2024-09-13 15:36:54,174 - jieba - DEBUG - Loading model cost 0.486 seconds.
+2024-09-13 15:36:54,174 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:36:54,174 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:40:53,583 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:40:53,583 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:40:53,583 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:40:53,583 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:40:54,247 - jieba - DEBUG - Loading model cost 0.663 seconds.
+2024-09-13 15:40:54,247 - jieba - DEBUG - Loading model cost 0.663 seconds.
+2024-09-13 15:40:54,247 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:40:54,247 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:44:20,095 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:44:20,095 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:44:20,095 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:44:20,095 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:44:20,562 - jieba - DEBUG - Loading model cost 0.467 seconds.
+2024-09-13 15:44:20,562 - jieba - DEBUG - Loading model cost 0.467 seconds.
+2024-09-13 15:44:20,562 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:44:20,562 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:45:50,385 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:45:50,385 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:45:50,385 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:45:50,385 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:45:50,896 - jieba - DEBUG - Loading model cost 0.511 seconds.
+2024-09-13 15:45:50,896 - jieba - DEBUG - Loading model cost 0.511 seconds.
+2024-09-13 15:45:50,896 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:45:50,896 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:46:42,636 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:46:42,636 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:46:42,636 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:46:42,636 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:46:43,102 - jieba - DEBUG - Loading model cost 0.465 seconds.
+2024-09-13 15:46:43,102 - jieba - DEBUG - Loading model cost 0.465 seconds.
+2024-09-13 15:46:43,102 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:46:43,102 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:56:06,657 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:56:06,657 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:56:06,657 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:56:06,657 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:56:07,138 - jieba - DEBUG - Loading model cost 0.481 seconds.
+2024-09-13 15:56:07,138 - jieba - DEBUG - Loading model cost 0.481 seconds.
+2024-09-13 15:56:07,138 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:56:07,138 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:57:29,413 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:57:29,413 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 15:57:29,413 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:57:29,413 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 15:57:29,911 - jieba - DEBUG - Loading model cost 0.498 seconds.
+2024-09-13 15:57:29,911 - jieba - DEBUG - Loading model cost 0.498 seconds.
+2024-09-13 15:57:29,911 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 15:57:29,911 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:23:29,869 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:23:29,869 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:23:29,869 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:23:29,869 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:23:30,387 - jieba - DEBUG - Loading model cost 0.518 seconds.
+2024-09-13 16:23:30,387 - jieba - DEBUG - Loading model cost 0.518 seconds.
+2024-09-13 16:23:30,388 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:23:30,388 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:25:02,123 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:25:02,123 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:25:02,124 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:25:02,124 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:25:02,584 - jieba - DEBUG - Loading model cost 0.461 seconds.
+2024-09-13 16:25:02,584 - jieba - DEBUG - Loading model cost 0.461 seconds.
+2024-09-13 16:25:02,584 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:25:02,584 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:25:49,228 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:25:49,228 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:25:49,228 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:25:49,228 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:25:49,733 - jieba - DEBUG - Loading model cost 0.505 seconds.
+2024-09-13 16:25:49,733 - jieba - DEBUG - Loading model cost 0.505 seconds.
+2024-09-13 16:25:49,733 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:25:49,733 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:31:42,305 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:31:42,305 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:31:42,305 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:31:42,305 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:31:42,772 - jieba - DEBUG - Loading model cost 0.467 seconds.
+2024-09-13 16:31:42,772 - jieba - DEBUG - Loading model cost 0.467 seconds.
+2024-09-13 16:31:42,772 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:31:42,772 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:32:13,437 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:32:13,437 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:32:13,437 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:32:13,437 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:32:13,953 - jieba - DEBUG - Loading model cost 0.517 seconds.
+2024-09-13 16:32:13,953 - jieba - DEBUG - Loading model cost 0.517 seconds.
+2024-09-13 16:32:13,954 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:32:13,954 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:49:09,276 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:49:09,276 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:49:09,277 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:49:09,277 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:49:09,751 - jieba - DEBUG - Loading model cost 0.474 seconds.
+2024-09-13 16:49:09,751 - jieba - DEBUG - Loading model cost 0.474 seconds.
+2024-09-13 16:49:09,751 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:49:09,751 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:52:16,350 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:52:16,350 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-13 16:52:16,350 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:52:16,350 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-13 16:52:16,827 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-13 16:52:16,827 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-13 16:52:16,828 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-13 16:52:16,828 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:15:33,619 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:15:33,619 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:15:33,619 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:15:33,619 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:15:34,095 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-14 19:15:34,095 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-14 19:15:34,096 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:15:34,096 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:32:23,732 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:32:23,732 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:32:23,732 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:32:23,732 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:32:24,203 - jieba - DEBUG - Loading model cost 0.471 seconds.
+2024-09-14 19:32:24,203 - jieba - DEBUG - Loading model cost 0.471 seconds.
+2024-09-14 19:32:24,203 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:32:24,203 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:35:52,461 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:35:52,461 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:35:52,462 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:35:52,462 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:35:52,932 - jieba - DEBUG - Loading model cost 0.471 seconds.
+2024-09-14 19:35:52,932 - jieba - DEBUG - Loading model cost 0.471 seconds.
+2024-09-14 19:35:52,933 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:35:52,933 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:47:34,685 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:47:34,685 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 19:47:34,685 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:47:34,685 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 19:47:35,162 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-14 19:47:35,162 - jieba - DEBUG - Loading model cost 0.477 seconds.
+2024-09-14 19:47:35,162 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 19:47:35,162 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 20:49:06,566 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 20:49:06,566 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 20:49:06,566 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 20:49:06,566 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 20:49:07,045 - jieba - DEBUG - Loading model cost 0.478 seconds.
+2024-09-14 20:49:07,045 - jieba - DEBUG - Loading model cost 0.478 seconds.
+2024-09-14 20:49:07,045 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 20:49:07,045 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 20:52:04,273 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 20:52:04,273 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 20:52:04,273 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 20:52:04,273 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 20:52:04,745 - jieba - DEBUG - Loading model cost 0.472 seconds.
+2024-09-14 20:52:04,745 - jieba - DEBUG - Loading model cost 0.472 seconds.
+2024-09-14 20:52:04,745 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 20:52:04,745 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:00:36,963 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:00:36,963 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:00:36,964 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:00:36,964 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:00:37,440 - jieba - DEBUG - Loading model cost 0.476 seconds.
+2024-09-14 21:00:37,440 - jieba - DEBUG - Loading model cost 0.476 seconds.
+2024-09-14 21:00:37,440 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:00:37,440 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:05:29,727 - root - INFO - RAG:executing RAG post-process...
+2024-09-14 21:05:29,727 - root - INFO - RAG:executing RAG post-process...
+2024-09-14 21:05:29,727 - root - INFO - RAG:searching milvus database...
+2024-09-14 21:05:29,727 - root - INFO - RAG:searching milvus database...
+2024-09-14 21:05:29,777 - root - INFO - RAG:reranking results...
+2024-09-14 21:05:29,777 - root - INFO - RAG:reranking results...
+2024-09-14 21:05:30,112 - root - INFO - RAG:post-process finished successfully.
+2024-09-14 21:05:30,112 - root - INFO - RAG:post-process finished successfully.
+2024-09-14 21:12:29,478 - root - INFO - RAG:executing RAG post-process...
+2024-09-14 21:12:29,478 - root - INFO - RAG:executing RAG post-process...
+2024-09-14 21:12:29,478 - root - INFO - RAG:searching milvus database...
+2024-09-14 21:12:29,478 - root - INFO - RAG:searching milvus database...
+2024-09-14 21:12:29,527 - root - INFO - RAG:reranking results...
+2024-09-14 21:12:29,527 - root - INFO - RAG:reranking results...
+2024-09-14 21:12:29,839 - root - INFO - RAG:post-process finished successfully.
+2024-09-14 21:12:29,839 - root - INFO - RAG:post-process finished successfully.
+2024-09-14 21:14:42,046 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:14:42,046 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:14:42,046 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:14:42,046 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:14:42,522 - jieba - DEBUG - Loading model cost 0.475 seconds.
+2024-09-14 21:14:42,522 - jieba - DEBUG - Loading model cost 0.475 seconds.
+2024-09-14 21:14:42,522 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:14:42,522 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:16:28,924 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:16:28,924 - jieba - DEBUG - Building prefix dict from the default dictionary ...
+2024-09-14 21:16:28,924 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:16:28,924 - jieba - DEBUG - Loading model from cache /tmp/jieba.cache
+2024-09-14 21:16:29,402 - jieba - DEBUG - Loading model cost 0.478 seconds.
+2024-09-14 21:16:29,402 - jieba - DEBUG - Loading model cost 0.478 seconds.
+2024-09-14 21:16:29,402 - jieba - DEBUG - Prefix dict has been built successfully.
+2024-09-14 21:16:29,402 - jieba - DEBUG - Prefix dict has been built successfully.
