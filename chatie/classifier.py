@@ -9,6 +9,7 @@ from chatie.net.net import Net
 from chatie.config import *
 from model.embed import Embed
 from model.model import CustomLLM
+from utils.logs import ChatIELogger
 
 class Classifier:
     def __init__(self, params:List[tuple], llm:CustomLLM, embed:Embed, templates:Dict):
@@ -18,6 +19,7 @@ class Classifier:
         self.embed = embed
         self.templates = templates
         self.params = params
+        self.logger = ChatIELogger()
         # record for labels
         self.phrase2label = {}  # reflection from param's name to label
         self.label2phrase = []  # reflection from label to param's name
@@ -26,8 +28,11 @@ class Classifier:
     
     # all the initialize process
     def init(self):
-        self.generate_labels()
-        self.load_net()
+        try:
+            self.generate_labels()
+            self.load_net()
+        except:
+            self.train_net()
     
     # print loss
     def print_loss(self, x:List[int], y:List[float]):
@@ -47,14 +52,14 @@ class Classifier:
             self.label2phrase.append(name)
         
      # auto generate training data
-    def generate_data(self, save_path:str=NET_TRAINING_DATA_PATH):
+    def generate_data(self, save_path:str=NET_TRAINING_DATA_PATH)->List[tuple]:
         # use LLM to generate structured training data
         data_list=[]
         for name, _, _ in self.params:
             prompt = PromptTemplate.from_template(self.templates['data_generation_prompt'])
             chain = LLMChain(llm=self.llm, prompt=prompt)
             r = chain(inputs={'input_text':name})['text']
-            print(r)
+            self.logger.info(f"param {name}'s generation is:{r}")
             # format should be a python list, because it's an easy task so we can fully trust LLM
             while True:  # in case LLM return in other formations, try using a loop until the result can be 'literal_eval'
                 try:
@@ -65,11 +70,12 @@ class Classifier:
             data_list.extend([(result, name) for result in results])  # 'result' is a replaced synonyms
         with open(save_path, 'wb') as f:
             pickle.dump(data_list, f)
+        return data_list
     
     # train the classifier net, return losses
     def train_net(self):
         # generate data using LLM
-        self.generate_data()
+        generate_data = self.generate_data()
         # preprocessing data
         with open(NET_TRAINING_DATA_PATH, 'rb') as f:
             arr = pickle.load(f)
@@ -83,7 +89,6 @@ class Classifier:
         # save net
         self.net.net_save()
         self.print_loss(iters, losses)
-        return iters, losses
     
     # load&init classifier net
     def load_net(self):

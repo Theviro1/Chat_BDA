@@ -7,19 +7,19 @@ class BaseLogger:
         self.logger=logging.getLogger(logger_name)
         self.logger.setLevel(logging.INFO)
         self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        # 挂载
+        # delete the protential repeat handlers
         for handler in self.logger.handlers[:]:
             self.logger.removeHandler(handler)
             handler.close()
         try:
             console_handler = logging.StreamHandler(sys.stdout)
-            file_handler = logging.FileHandler(logger_path, mode='w')
+            file_handler = logging.FileHandler(logger_path, mode='w', encoding='utf-8')
             console_handler.setFormatter(self.formatter)
             file_handler.setFormatter(self.formatter)
             self.logger.addHandler(console_handler)
             self.logger.addHandler(file_handler)
-        except:
-            pass
+        except Exception as e:
+            print(e)
     
     def warning(self, msg:str):
         self.logger.warning(msg)

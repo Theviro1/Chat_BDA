@@ -53,6 +53,9 @@ class Executor:
         r = self.extractor.list_data(limit)
         return r
 
+    def extraction_classifier_train(self):
+        self.extractor.train_classifier()
+
     # 知识问答
     def knowledge_base_qa(self, input_text:str)->str:
         # 使用本地LLM（chatglm-4-9b）+ 自定义RAG

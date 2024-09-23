@@ -1,0 +1,24 @@
+2024-09-23 16:12:42,365 - FreeMOD - INFO - checking format in formula knowledge files...
+2024-09-23 16:12:43,316 - FreeMOD - INFO - creating final input based on input_case...
+2024-09-23 16:12:43,316 - FreeMOD - INFO - handling all the "_i" stuff in formulas...
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in w_pos_act_mass = Sum ( w_pos_act_mass_i ), try skip this formula
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in c_pos_theo_cap = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_theo_cap_i ), try skip this formula
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in c_pos_real_cap = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_real_cap_i ), try skip this formula
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in c_pos_s_max = Sum ( ( w_pos_act_mass_i / w_pos_act_mass ) * c_pos_s_max_i ), try skip this formula
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in m_pos_i = w_pos_act_mass_i * m_pos_solid, try skip this formula
+2024-09-23 16:12:43,317 - FreeMOD - INFO - no proper inputs can be found in v_pos_i = ( m_pos_i * c_pos_real_cap_i * 3600000 ) / ( ( c_pos_real_cap_i / c_pos_theo_cap_i ) * F * c_pos_s_max_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in w_neg_act_mass = Sum ( w_neg_act_mass_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in c_neg_theo_cap = Sum ( ( w_neg_act_mass_i / w_neg_act_mass ) * c_neg_theo_cap_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in c_neg_real_cap = Sum ( ( w_neg_act_mass_i / w_neg_act_mass ) * c_neg_real_cap_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in c_neg_s_max = Sum ( ( w_neg_act_mass_i / w_neg_act_mass ) * c_neg_s_max_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in m_neg_i = w_neg_act_mass_i * m_neg_solid, try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - no proper inputs can be found in v_neg_i = ( m_neg_i * c_neg_real_cap_i * 3600000 ) / ( ( c_neg_real_cap_i / c_neg_theo_cap_i ) * F * c_neg_s_max_i ), try skip this formula
+2024-09-23 16:12:43,318 - FreeMOD - INFO - creating default bound...
+2024-09-23 16:12:43,319 - FreeMOD - INFO - updating bound based on ineqs...
+2024-09-23 16:12:43,321 - FreeMOD - INFO - loading data into neo4j...
+2024-09-23 16:12:44,068 - FreeMOD - INFO - loading successfully finished
+2024-09-23 16:12:44,068 - FreeMOD - INFO - inferring successfully finished
+2024-09-23 16:12:44,068 - FreeMOD - INFO - executing automated inferring machine..
+2024-09-23 16:12:44,466 - FreeMOD - INFO - finish auto infer
+2024-09-23 16:12:46,081 - FreeMOD - INFO - after 1 times of loop, successfully generate a bunch of value that satisfied all the formulas
+2024-09-23 16:12:46,081 - FreeMOD - INFO - finish auto generate

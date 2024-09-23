@@ -9,10 +9,10 @@ from chatie.config import *
 
 
 class CustomNet(torch.nn.Module):
-    def __init__(self, input_dim:int, num_classes:int):
+    def __init__(self, input_dim:int, num_classes:int, hidden_state:int=NET_HIDDEN_STATE):
         super(CustomNet, self).__init__()
-        self.layer1 = torch.nn.Linear(input_dim, 16)
-        self.layer2 = torch.nn.Linear(16, num_classes)
+        self.layer1 = torch.nn.Linear(input_dim, hidden_state)
+        self.layer2 = torch.nn.Linear(hidden_state, num_classes)
     
     def forward(self, x):
         x = self.layer1(x)

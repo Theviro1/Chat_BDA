@@ -30,7 +30,6 @@ class CustomExtractor:
     # ----------------------functions for processing-----------------------
     # initialize all params
     def load_params(self, params_dir:str = PARAMS_INFO_PATH):
-        self.logger.info(f'loading params from given params knowledge...')
         with open(params_dir, 'r') as f:
             lines = f.readlines()
         params = []

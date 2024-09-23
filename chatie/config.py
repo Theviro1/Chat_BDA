@@ -27,11 +27,12 @@ NET_TRAINING_DATA_PATH = 'Chat_BDA/chatie/net/data.pkl'
 NET_PCA_PATH = 'Chat_BDA/chatie/net/pca.pkl'
 NET_LOG_PATH = 'Chat_BDA/chatie/net/net_logs.txt'
 # 神经网络参数
+NET_HIDDEN_STATE = 16
 NET_INPUT_DIM = 32
 NET_LR = 1e-3
-NET_EPOCH = 800
+NET_EPOCH = 1000
 NET_BATCH_SIZE = 32
 
 # 分词参数
 STOP_WORDS = ['的', '是', '总']
-FILTER_RATE = 0.5  # number between 0,1
+FILTER_RATE = 0.5  # number between (0, 1)
