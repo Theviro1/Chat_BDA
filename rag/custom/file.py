@@ -5,7 +5,7 @@ from langchain_community.document_loaders import PDFMinerLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_core.documents import Document
 import hashlib
-from utils.logs import CustomLogger
+from utils.logs import RAGLogger
 
 # 定义不同文件的分割符，取决于文件的处理方法
 from rag.custom.config import PDF_SEPARATOR
@@ -42,7 +42,7 @@ class FileSplitter:
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.chunk_limit = chunk_limit
-        self.logger = CustomLogger()
+        self.logger = RAGLogger()
     
     # 按照指定字符进行分割
     def split_by_character(self, docs:List[Document], separator:str)->List[Document]:

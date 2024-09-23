@@ -3,28 +3,41 @@ from langchain_core.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 import pickle
 from typing import Dict, List
+import matplotlib.pyplot as plt
 
 from chatie.net.net import Net
 from chatie.config import *
 from model.embed import Embed
+from model.model import CustomLLM
 
 class Classifier:
-    def __init__(self, params:List[tuple], embed:Embed, templates:Dict):
+    def __init__(self, params:List[tuple], llm:CustomLLM, embed:Embed, templates:Dict):
         # models
         self.net = Net(num_classes=len(params))
+        self.llm = llm
         self.embed = embed
         self.templates = templates
         self.params = params
         # record for labels
         self.phrase2label = {}  # reflection from param's name to label
         self.label2phrase = []  # reflection from label to param's name
+        # init
+        self.init()
     
     # all the initialize process
-    def initialize(self, train:bool=False):
+    def init(self):
         self.generate_labels()
-        if train: self.train_net()
         self.load_net()
     
+    # print loss
+    def print_loss(self, x:List[int], y:List[float]):
+        plt.title('classifier nerual-network loss trend')
+        plt.xlabel('iter')
+        plt.ylabel('loss')
+        plt.plot(x, y)
+        plt.savefig(LOSS_FIGURE_PATH)
+        
+
     # generate labels
     def generate_labels(self):
         for i, (name, _, _) in enumerate(self.params):
@@ -43,7 +56,12 @@ class Classifier:
             r = chain(inputs={'input_text':name})['text']
             print(r)
             # format should be a python list, because it's an easy task so we can fully trust LLM
-            results = ast.literal_eval(r)
+            while True:  # in case LLM return in other formations, try using a loop until the result can be 'literal_eval'
+                try:
+                    results = ast.literal_eval(r)  
+                    break   # if success, break
+                except:
+                    r = chain(inputs={'input_text':name})['text']  # if not, continue generating
             data_list.extend([(result, name) for result in results])  # 'result' is a replaced synonyms
         with open(save_path, 'wb') as f:
             pickle.dump(data_list, f)
@@ -61,10 +79,11 @@ class Classifier:
         labels = [self.phrase2label[label] for label in labels]
         # train net
         self.net.pca_train(datas)
-        losses = self.net.net_train(datas, labels)
+        iters, losses = self.net.net_train(datas, labels)
         # save net
         self.net.net_save()
-        return losses
+        self.print_loss(iters, losses)
+        return iters, losses
     
     # load&init classifier net
     def load_net(self):

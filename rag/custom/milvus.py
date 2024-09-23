@@ -1,7 +1,7 @@
 from pymilvus import connections, Collection, utility, db, FieldSchema, CollectionSchema, DataType
 from typing import List, Any
 
-from rag.custom.config import INDEX_TYPE, INDEX_PARAMS, METRIC_TYPE, SEARCH_PARAMS
+from rag.custom.config import INDEX_TYPE, INDEX_PARAMS, METRIC_TYPE, SEARCH_PARAMS, MAX_LIMIT
 
 
 class Milvus:
@@ -90,6 +90,11 @@ class Milvus:
         r = self.collection.query(expr=f'file_name == \'{file_name}\'', output_fields=['chunk_id', 'content'])
         if len(r) == 0: return False
         else: return True
+    
+    def list_file(self):
+        r = self.collection.query(expr='', output_fields=['file_name'], limit=MAX_LIMIT)
+        r = [result['file_name'] for result in r]
+        return r
     
     # 用新的一批chunk覆盖原文件
     def cover_file(self, file_name:str, chunk_ids:List[str], embeddings:List[List[float]], contents:List[str]):

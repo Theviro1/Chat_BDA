@@ -23,3 +23,5 @@ INDEX_PARAMS={     # 索引参数
 SEARCH_PARAMS={    # 检索参数
     'ef':100
 }
+
+MAX_LIMIT = 10000  # query数量最大限制

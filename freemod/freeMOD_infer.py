@@ -10,12 +10,14 @@ import re
 
 from tqdm import tqdm
 from freemod.config import *
+from utils.logs import FreeMODLogger
 
 input_relas = []
 input_paras = []
 input_pid_sparse = []
 input_pid_origin = []
 input_rid_params = []
+logger = FreeMODLogger()
 
 
 # Part I. inputs
@@ -205,8 +207,8 @@ def do_exp(rid, pid):
     elif '>' in formula:
         is_conflict = cal_exp_ineq(rid, pid)
     else:
-        print(formula)
-        is_conflict = False
+        logger.error(f'{formula} contains illegal expression')
+        is_conflict = True
     return is_conflict
 
 
@@ -217,39 +219,39 @@ def reset_isVisited():
         param['isVisited'] = 0
 
 def print_conflict(rid, lost_pid=-1):
-    print('during inferring encounter an error:', end='')
+    logger.warning('during inferring encounter an error:', end='')
     reset_isVisited()
     if lost_pid == -1:
-        print('after inferred error\n')
+        logger.warning('after inferred error\n')
         for pid in input_relas[rid]['Pn']:
             if input_pid_origin[pid] == 1:
                 if input_paras[pid]['isVisited'] == 1:
                     continue
-                print(f'original input {input_paras[pid]["ParaName"]} = {input_paras[pid]["Value"]}')
+                logger.info(f'original input {input_paras[pid]["ParaName"]} = {input_paras[pid]["Value"]}')
                 input_paras[pid]['isVisited'] = 1
             else:
                 print_conflict_dfs(input_paras[pid]['InferredPath'], pid)
         exp = get_exp(rid)
-        print(f'\nafter infering, in formula {input_relas[rid]["Formula"]} there is a conflict:')
-        print(f'formula {exp} cannot be satisfied')
+        logger.warning(f'\nafter infering, in formula {input_relas[rid]["Formula"]} there is a conflict:')
+        logger.warning(f'formula {exp} cannot be satisfied')
     # encounter an error when calculating lost_pid
     else:
         name, result = input_paras[lost_pid]['ConflictInfo']
-        print(name + '\n')
+        logger.warning(name + '\n')
         if name == 'out of bound':
             print_conflict_dfs(rid, lost_pid)
-            print(f'\nvalue of {input_paras[lost_pid]["ParaName"]} get {result} which is out of the bound [{input_paras[lost_pid]["Domain"][0]}, {input_paras[lost_pid]["Domain"][1]}]')
+            logger.warning(f'\nvalue of {input_paras[lost_pid]["ParaName"]} get {result} which is out of the bound [{input_paras[lost_pid]["Domain"][0]}, {input_paras[lost_pid]["Domain"][1]}]')
         elif name == 'unsolvable':
             print_conflict_dfs(rid, lost_pid)
-            print(f'\nvalue of {input_paras[lost_pid]["ParaName"]} is not solvable')
+            logger.warning(f'\nvalue of {input_paras[lost_pid]["ParaName"]} is not solvable')
         elif name == 'formula collapse':
-            print('in a different formula, we have:')
+            logger.info('in a different formula, we have:')
             print_conflict_dfs(input_paras[lost_pid]['InferredPath'], lost_pid)
             reset_isVisited()
             input_paras[lost_pid]['InferredValue'] = result
-            print('\nin this formula we have:')
+            logger.info('\nin this formula we have:')
             print_conflict_dfs(rid, lost_pid)
-            print(f'\nvalue of {input_paras[lost_pid]["ParaName"]} has conflict')
+            logger.warning(f'\nvalue of {input_paras[lost_pid]["ParaName"]} has conflict')
 
 def print_conflict_dfs(rid, lost_pid):
     # reset visited
@@ -258,12 +260,12 @@ def print_conflict_dfs(rid, lost_pid):
         if input_paras[pid]['isVisited'] == 1:
             continue
         if input_pid_origin[pid] == 1:
-            print(f'original input {input_paras[pid]["ParaName"]} = {input_paras[pid]["Value"]}')
+            logger.info(f'original input {input_paras[pid]["ParaName"]} = {input_paras[pid]["Value"]}')
             input_paras[pid]['isVisited'] = 1
             continue
         print_conflict_dfs(input_paras[pid]['InferredPath'], pid)
         input_paras[pid]['isVisited'] = 1
-    print(f'using formula {input_relas[rid]["Formula"]} inferred {input_paras[lost_pid]["ParaName"]} = {input_paras[lost_pid]["InferredValue"]}')
+    logger.info(f'using formula {input_relas[rid]["Formula"]} inferred {input_paras[lost_pid]["ParaName"]} = {input_paras[lost_pid]["InferredValue"]}')
             
 
 # Part IV. infer
@@ -306,7 +308,7 @@ def auto_infer():
             if not check_exp(rid):
                 print_conflict(rid) 
                 return False
-    print('finish auto infer')
+    logger.info('finish auto infer')
     return True
 
 # Part V. solve equations
@@ -407,7 +409,7 @@ def solve():
 def auto_gen():
     replace()
     if len(eq_formula_exps) == 0: 
-        print('auto infer has inferred all value, no need for auto generate')
+        logger.info('auto infer has inferred all value, no need for auto generate')
         return True
     times = 0
     # try to find a proper initial value
@@ -416,11 +418,11 @@ def auto_gen():
         solvable = solve()
         if solvable: break
     if times == RETRY_TIMES:
-        print('during generating encounter an error: formulas unsolvable, try fix inputs')
+        logger.error('during generating encounter an error: formulas unsolvable, try fix inputs')
         return False
     # here means formulas solvable, in function solve(), the proper value of initial value has been saved in eq_param_init    
-    print(f'after {times} times of loop, successfully generate a bunch of value that satisfied all the formulas')
-    print('finish auto generate')
+    logger.info(f'after {times} times of loop, successfully generate a bunch of value that satisfied all the formulas')
+    logger.info('finish auto generate')
     return True
     
 # Part VI. output
@@ -442,11 +444,11 @@ def run():
     load_inputs()
     inferable = auto_infer()
     if not inferable: 
-        print('infer unsolvable')
+        logger.error('infer unsolvable')
         return ''
     solvable = auto_gen()
     if not solvable: 
-        print('generate unsolvable')
+        logger.error('generate unsolvable')
         return ''
     output()
     return result()

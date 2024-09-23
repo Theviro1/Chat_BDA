@@ -5,7 +5,6 @@ import re
 import ast
 import hashlib
 from typing import Dict, List
-import matplotlib.pyplot as plt
 
 
 from chatie.formatter import Formatter
@@ -13,6 +12,7 @@ from model.embed import Embed
 from chatie.config import *
 from chatie.milvus import Milvus
 from chatie.classifier import Classifier
+from utils.logs import ChatIELogger
 
 class CustomExtractor:
     def __init__(self, llm:BaseLanguageModel, embedding:Embed, templates:dict[str:str]):
@@ -23,12 +23,14 @@ class CustomExtractor:
         self.params = self.load_params()  # list of tuple like (name, symbol, unit)
         # handlers
         self.milvus = Milvus()
-        self.classifier = Classifier(self.params, self.embedding, self.templates)
+        self.classifier = Classifier(self.params, self.llm, self.embedding, self.templates)
         self.formatter = Formatter(self.params)
+        self.logger = ChatIELogger()
 
     # ----------------------functions for processing-----------------------
     # initialize all params
     def load_params(self, params_dir:str = PARAMS_INFO_PATH):
+        self.logger.info(f'loading params from given params knowledge...')
         with open(params_dir, 'r') as f:
             lines = f.readlines()
         params = []
@@ -43,16 +45,14 @@ class CustomExtractor:
     # ----------------------functions for formatter-----------------------
     def filter_phrase(self, input_text:str):
         # filter phrases based on input text
+        self.logger.info('filtering phrases...')
         return self.formatter.filter(input_text)
-
-    def handle_result(self, extraction):
-        pass
     
 
     # ----------------------functions for milvus-----------------------
     # upload examples
     def upload(self, examples_path:str=EXAMPLES_PATH):
-        self.clear_data()
+        self.logger.info('uploading shots...')
         with open(examples_path, 'r') as f:
             r = f.read()
         datas = ast.literal_eval(r)
@@ -69,6 +69,7 @@ class CustomExtractor:
     
     # retrieve examples
     def retrieve(self, query:str)->List[Dict]:
+        self.logger.info('retrieving shots...')
         query_embedding = self.embedding.embedding([query])
         results = self.milvus.search(query_embedding, top_k=TOP_K)
         return results
@@ -83,15 +84,15 @@ class CustomExtractor:
 
     
     # ----------------------functions for classifier-----------------------
-    # use the classifier net
-    def classify(self, phrase:str):
-        return self.classifier.classify(phrase)
-    
-
+    # train classifier net    
+    def train_classifier(self):
+        self.logger.info('traning classifier net...')
+        self.classifier.train_net()
 
     # ----------------------main functions-----------------------
     # preprocess natural language input
     def extract_params_preprocess(self, query:str, examples:List[Dict])->str:
+        self.logger.info('preprocessing query, reforming input...')
         # define templates
         example_prompt = PromptTemplate.from_template(self.templates['params_extraction_example_prompt'])
         suffix = self.templates['params_extraction_suffix_prompt']
@@ -103,6 +104,7 @@ class CustomExtractor:
     
     # extract all params from preprocessed input
     def extract_params_main(self, query:str, examples:List[Dict]):
+        self.logger.info('processing query, extracting params&values&units...')
         # define templates
         example_prompt = PromptTemplate.from_template(self.templates['params_extraction_example_prompt'])
         suffix = self.templates['params_extraction_suffix_prompt']
@@ -123,13 +125,14 @@ class CustomExtractor:
 
     # reinforce result
     def extract_params_postprocess(self, extraction:List[tuple])->tuple:
+        self.logger.info('postprocessing query, re-classifying phrases and units...')
         param_names = [name for name, _, _ in self.params]
         fixed_extraction = []
         # obtain correct name&symbol
         for name, value, unit in extraction:
             if name not in param_names: 
-                fixed_name = self.classify(name)
-                print(f'fix {name} to {fixed_name} by classifier')
+                fixed_name = self.classifier.classify(name)
+                self.logger.info(f'fix {name} to {fixed_name} by classifier')
             else: fixed_name = name
             fixed_symbol, standard_unit = [(symbol, unit) for name, symbol, unit in self.params if name == fixed_name][0]
             fixed_extraction.append((fixed_name, fixed_symbol, value, unit, standard_unit))  # list of tuple like (name, symbol, value, unit, standard_unit)
@@ -145,13 +148,11 @@ class CustomExtractor:
         examples = self.retrieve(query)
         examples4preprocess = [{'example_question':example['question_r'], 'example_answer':example['question_p']} for example in examples]
         examples4extract = [{'example_question':example['question_p'], 'example_answer':example['answer']} for example in examples]
-        # prepare classifier
-        self.classifier.initialize()
         # extract params
         query = self.extract_params_preprocess(query, examples4preprocess)
-        print(f'extract preprocess result:{query}')
+        self.logger.info(f'extract preprocess result:{query}')
         extraction = self.extract_params_main(query, examples4extract)
-        print(f'extract main result:{extraction}')
+        self.logger.info(f'extract process result:{extraction}')
         eqs, ineqs = self.extract_params_postprocess(extraction)
         # write into feature files
         with open(INPUT_CASE_PATH, 'w') as f:

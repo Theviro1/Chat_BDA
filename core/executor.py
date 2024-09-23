@@ -38,10 +38,20 @@ class Executor:
         r = chain(inputs={'input_text': input_text})['text']
         return r
     
-    # 上传知识文件
+    # 上传&查看知识文件
     def knowledge_base_update(self, file_path:str):
         self.rag.rag_pre_process(file_path)
+    
+    def knowledge_base_show(self):
+        r = self.rag.list_file()
+        return r
+        
+    def extraction_shots_update(self):
         self.extractor.upload()
+
+    def extraction_shots_show(self, limit:int):
+        r = self.extractor.list_data(limit)
+        return r
 
     # 知识问答
     def knowledge_base_qa(self, input_text:str)->str:
@@ -55,6 +65,7 @@ class Executor:
 
     # 新品设计
     def product_design(self, input_text:str):
+        # self.extractor.train_classifier()  # 每次修改了参数文件之后都需要重新对网络进行训练
         self.extractor.extract(input_text)
         r = freeMOD.run()
         return r

@@ -98,7 +98,7 @@ L_pos_single: 正极单面涂布长度: μm
 L_pos_coat_use: 正极发挥容量涂布长度: μm
 L_pos_coat_total: 正极总涂布长度: μm
 H_pos: 正极极片高度: μm
-v_pos_coat_roll_reb_use: 正极发挥容量的辊压反弹后体积: cm³
+v_pos_coat_roll_reb_use: 发挥容量的辊压反弹后体积: cm³
 
 
 D_neg_cc: 负极集流体厚度: μm

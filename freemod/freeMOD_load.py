@@ -8,6 +8,10 @@ from freemod.config import *
 import re
 import sympy
 
+from utils.logs import FreeMODLogger
+
+logger = FreeMODLogger()
+
 def input_case(file_path):
     with open(file_path, 'r') as f:
         case = f.read()
@@ -24,7 +28,7 @@ def handle_format():
         # lexer check
         if re.match(pattern, formula.strip()) is None:
             indexs.append(i)
-            print(f'invalid syntax at line {i}, please check your file!')
+            logger.error(f'invalid syntax at line {i}, please check your file!')
             continue
         # gramma check
         gramma = formula.replace('Sum', '')
@@ -35,12 +39,12 @@ def handle_format():
             sympy.simplify(gramma)
         except Exception as e:
             indexs.append(i)
-            print(f'in line {i},' + str(e))
+            logger.error(f'in line {i},' + str(e))
         # if success, strip it
         format_formulas.append(formula.strip() + '\n')
         i += 1
     if len(indexs) != 0: 
-        print(f'please check line {indexs}')
+        logger.error(f'please check line {indexs}')
         return False
     with open(FORMULAS_RAW_PATH, 'w') as f:
         f.writelines(format_formulas)
@@ -144,7 +148,7 @@ def handle_sum():
                 i += 1
             # i still equals 1 means user input nothing, this formula will be deleted, left_exp will choose the default value
             if i == 1:
-                print(f'no proper inputs can be found in {formula.strip()}, try skip this formula')
+                logger.info(f'no proper inputs can be found in {formula.strip()}, try skip this formula')
                 continue
             right_formula = ' + '.join(sum_formulas)
             reformed_formula = left_exp + ' = ' + right_formula + '\n'
@@ -175,7 +179,7 @@ def handle_sum():
                 i += 1
             # i still equals 1 means user input nothing, this formula will be deleted
             if i == 1: 
-                print(f'no proper inputs can be found in {formula.strip()}, try skip this formula')
+                logger.info(f'no proper inputs can be found in {formula.strip()}, try skip this formula')
                 continue
             reformed_formulas.extend(extend_formulas)
     # mostly user will only input right_exp by input _num params, left_exp might choose the value in default case, and then try to solve the conflict and fix left value.

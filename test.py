@@ -6,7 +6,9 @@ query1 = '''我们需要设计一款高性能电池，其中正极材料的活�
 此外，隔膜的厚度应小于18μm，整个卷绕结构的卷绕层数为60圈，内径为22mm。
 '''
 query2 = '''如果我想提高电池在高倍率下的放电容量，我可以选用尺寸更大的团聚体结构么？'''
-executor.execute(query1)
+# executor.extraction_shots_update()
+# executor.knowledge_base_update('/home/hjl/Chat_BDA/config/knowledge/王子珩-团聚体堆叠型多孔电极模型构建与应用.pdf')
+executor.execute(query2)
 
 
 # freeMOD测试：success

@@ -43,7 +43,7 @@ class Net:
     
 
     # train net
-    def net_train(self, datas:List[List[float]], labels:List[List[float]]):
+    def net_train(self, datas:List[List[float]], labels:List[List[float]])->tuple:
         datas = self.pca.transform(datas)
         # init
         optimizer = torch.optim.Adam(self.net.parameters(), lr=self.learning_rate)
@@ -59,9 +59,11 @@ class Net:
         # 这是一个内插问题，所以迭代轮数可以很高，“过拟合”是一种好的现象
         # train
         losses = []
+        iters = []
+        iter = 0
         for epoch in range(NET_EPOCH):
             epoch_loss = []
-            print(f'in epoch {epoch}')
+            print(f'training epoch {epoch}')
             for batch_data, batch_label in dataloader:
                 # forward
                 batch_data, batch_label = batch_data.to(self.device), batch_label.to(self.device)
@@ -71,11 +73,12 @@ class Net:
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
-                # print
+                # update
+                iter += 1
+                iters.append(iter)
                 epoch_loss.append(loss.item())
-                print(loss.item())
             losses.extend(epoch_loss)
-        return losses
+        return iters, losses
     
 
     # use net
